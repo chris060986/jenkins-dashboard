@@ -1,0 +1,45 @@
+.buildbox{
+    text-align: center;
+}
+.buildbox .green{
+    background-color: #dff0d8;
+}
+.buildbox .blue{
+    background-color: #dff0d8;
+}
+.buildbox .green_anime{
+    background-color: #dff0d8;
+}
+.buildbox .blue_anime{
+    background-color: #dff0d8;
+}
+.buildbox .yellow{
+    background-color: #faebcc;
+}
+.buildbox .yellow_anime{
+    background-color: #faebcc;
+}
+.buildbox .red{
+    background-color: #ebccd1;
+}
+.buildbox .red_anime{
+    background-color: #ebccd1;
+}
+.buildbox .disabled {
+    background-color: #f5f5f5;
+}
+.buildbox .aborted {
+    background-color: #f5f5f5;
+}
+.buildbox .notbuilt{
+    background-color: #f5f5f5;
+}
+.buildbox .disabled_anime {
+    background-color: #f5f5f5;
+}
+.buildbox .aborted_anime {
+    background-color: #f5f5f5;
+}
+.buildbox .notbuilt_anime{
+    background-color: #f5f5f5;
+}

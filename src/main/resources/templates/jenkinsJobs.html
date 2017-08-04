@@ -6,15 +6,27 @@
 <body>
 
 <div class="container">
-    <div class="page-header">
-        <h1>Build-Jobs</h1>
-    </div>
 
     <div id="result">
         <p th:if="${jenkinsJobs.isEmpty()}">
             No result found.
         </p>
-        <table class="table table-stripped" th:if="${not jenkinsJobs.isEmpty()}">
+        <div class="row">
+            <div class="col-xs-6 col-md-3 buildbox" th:each="job : ${jenkinsJobs}">
+
+                    <a href="#" class="thumbnail">
+                        <div class="panel " th:classappend="${job.getColor()}">
+                            <h1 th:text="${job.getName()}">feature/xyz</h1>
+                            <h1><small>#866</small></h1>
+                            <h1><small th:text="${job.getColor()}">bich152</small></h1>
+                        </div>
+                    </a>
+
+            </div>
+        </div>
+
+
+        <!--<table class="table table-stripped" th:if="${not jenkinsJobs.isEmpty()}">
             <thead>
             <tr>
                 <th>Status</th>
@@ -27,7 +39,7 @@
                 <td th:text="${job.getName()}"></td>
             </tr>
             </tbody>
-        </table>
+        </table>-->
 
     </div>
 </div>
