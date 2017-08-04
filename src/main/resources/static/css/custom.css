@@ -1,5 +1,7 @@
 .buildbox{
     text-align: center;
+    max-height: 200px;
+    min-height: 100px;
 }
 .buildbox .green{
     background-color: #dff0d8;
