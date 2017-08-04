@@ -13,13 +13,14 @@
         </p>
         <div class="row">
             <div class="col-xs-6 col-md-3 buildbox" th:each="job : ${jenkinsJobs}">
-                <a  class="thumbnail" th:href="${job.getUrl()}">
-                    <div class="panel " th:classappend="${job.getColor()}">
+                <div class="panel" th:classappend="${job.getColor()}">
+                    <a th:href="${job.getUrl()}">
                         <h3 th:text="${job.getName()}">feature/xyz</h3>
                         <h3><small>#866</small></h3>
                         <h3><small th:text="${job.getColor()}">bich152</small></h3>
-                    </div>
-                </a>
+                    </a>
+
+                </div>
             </div>
         </div>
 

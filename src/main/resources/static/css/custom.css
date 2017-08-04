@@ -1,8 +1,15 @@
 .buildbox{
     text-align: center;
+    #TODO: try to find better solution
     max-height: 200px;
-    min-height: 100px;
+    min-height: 200px;
 }
+.buildbox .panel{
+    #TODO: try to find better solution
+    max-height: 200px;
+    min-height: 200px;
+}
+
 .buildbox .green{
     background-color: #dff0d8;
 }
