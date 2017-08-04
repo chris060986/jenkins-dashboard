@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/head"></div>
+</head>
+<body>
+
+<div class="container">
+    <div class="page-header">
+        <h1>Build-Jobs</h1>
+    </div>
+
+    <div id="result">
+        <p th:if="${jenkinJobs.isEmpty()}">
+            No result found.
+        </p>
+        <table class="table table-stripped" th:if="${not jenkinsJobs.isEmpty()}">
+            <thead>
+            <tr>
+                <th>Name</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="job : ${jenkinsJobs}">
+                <td th:text="${job.name()}">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+<div th:replace="fragments/scripts"></div>
+</body>
+</html>
