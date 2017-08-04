@@ -1,15 +1,12 @@
 package com.chbi.ui;
 
-import com.chbi.jenkins.JenkinsJob;
+import com.chbi.json.entities.JenkinsJob;
 import com.chbi.rest.DataProvider;
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.nio.charset.Charset;
 import java.util.List;
 
 @Controller

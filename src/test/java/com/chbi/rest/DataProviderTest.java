@@ -1,15 +1,13 @@
 package com.chbi.rest;
 
-import com.chbi.jenkins.JenkinsView;
+import com.chbi.json.entities.JenkinsView;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.JsonTest;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.boot.test.json.ObjectContent;
-import org.springframework.http.HttpStatus;
 import org.springframework.test.context.junit4.SpringRunner;
-import sun.net.www.http.HttpClient;
 
 @RunWith(SpringRunner.class)
 @JsonTest
