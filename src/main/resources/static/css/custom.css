@@ -9,37 +9,116 @@
 }
 .buildbox .green_anime{
     background-color: #dff0d8;
+    -webkit-animation: background-green 2s cubic-bezier(1,0,0,1) infinite;
+    animation: background-green 2s cubic-bezier(1,0,0,1) infinite;
 }
 .buildbox .blue_anime{
     background-color: #dff0d8;
+    -webkit-animation: background-green 2s cubic-bezier(1,0,0,1) infinite;
+    animation: background-green 2s cubic-bezier(1,0,0,1) infinite;
 }
 .buildbox .yellow{
     background-color: #faebcc;
 }
 .buildbox .yellow_anime{
     background-color: #faebcc;
+    -webkit-animation: background-yellow 2s cubic-bezier(1,0,0,1) infinite;
+    animation: background-yellow 2s cubic-bezier(1,0,0,1) infinite;
 }
 .buildbox .red{
     background-color: #ebccd1;
 }
 .buildbox .red_anime{
     background-color: #ebccd1;
+    -webkit-animation: background-red 2s cubic-bezier(1,0,0,1) infinite;
+    animation: background-red 2s cubic-bezier(1,0,0,1) infinite;
 }
 .buildbox .disabled {
-    background-color: #f5f5f5;
+    background-color: #e6e6e6;
 }
 .buildbox .aborted {
-    background-color: #f5f5f5;
+    background-color: #e6e6e6;
 }
 .buildbox .notbuilt{
-    background-color: #f5f5f5;
+    background-color: #e6e6e6;
 }
 .buildbox .disabled_anime {
-    background-color: #f5f5f5;
+    background-color: #e6e6e6;
+    -webkit-animation: background-disabled 2s cubic-bezier(1,0,0,1) infinite;
+    animation: background-disabled 2s cubic-bezier(1,0,0,1) infinite;
 }
 .buildbox .aborted_anime {
-    background-color: #f5f5f5;
+    background-color: #e6e6e6;
+    -webkit-animation: background-disabled 2s cubic-bezier(1,0,0,1) infinite;
+    animation: background-disabled 2s cubic-bezier(1,0,0,1) infinite;
 }
 .buildbox .notbuilt_anime{
-    background-color: #f5f5f5;
+    background-color: #e6e6e6;
+    -webkit-animation: background-disabled 2s cubic-bezier(1,0,0,1) infinite;
+    animation: background-disabled 2s cubic-bezier(1,0,0,1) infinite;
+}
+
+@-webkit-keyframes background-green {
+  0% { background-color: #dff0d8; }
+  50% { background-color: #e1f1da; }
+  67% { background-color: #f0f8ed; }
+  100% { background-color: #fff; }
+}
+@keyframes background-green {
+  0% { background-color: #fff; }
+  33% { background-color: #f0f8ed; }
+  67% { background-color: #e1f1da; }
+  100% { background-color: #dff0d8; }
+}
+
+@-webkit-keyframes background-yellow {
+  0% { background-color: #faebcc; }
+  50% { background-color: #faecd1; }
+  67% { background-color: #fdf6e8; }
+  100% { background-color: #fff; }
+}
+@keyframes background-yellow {
+  0% { background-color: #fff; }
+  33% { background-color: #fdf6e8; }
+  67% { background-color: #faecd1; }
+  100% { background-color: #faebcc; }
+}
+
+@-webkit-keyframes background-red {
+  0% { background-color: #ebccd1; }
+  50% { background-color: #f1dade; }
+  67% { background-color: #f8edef; }
+  100% { background-color: #fff; }
+}
+@keyframes background-red {
+  0% { background-color: #fff; }
+  33% { background-color: #f8edef; }
+  67% { background-color: #f1dade; }
+  100% { background-color: #ebccd1; }
+}
+
+@-webkit-keyframes background-red {
+  0% { background-color: #ebccd1; }
+  50% { background-color: #f1dade; }
+  67% { background-color: #f8edef; }
+  100% { background-color: #fff; }
+}
+@keyframes background-red {
+  0% { background-color: #fff; }
+  33% { background-color: #f8edef; }
+  67% { background-color: #f1dade; }
+  100% { background-color: #ebccd1; }
+}
+
+@-webkit-keyframes background-disabled {
+  0% { background-color: #e6e6e6; }
+  50% { background-color: #f2f2f2; }
+  67% { background-color: #f5f5f5; }
+  100% { background-color: #fff; }
+}
+@keyframes background-disabled {
+  0% { background-color: #fff; }
+  33% { background-color: #f5f5f5; }
+  67% { background-color: #f2f2f2; }
+  100% { background-color: #e6e6e6; }
 }
