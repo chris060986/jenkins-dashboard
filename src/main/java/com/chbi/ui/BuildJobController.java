@@ -23,7 +23,7 @@ public class BuildJobController {
     }
 
     @RequestMapping("/jenkinsJobs")
-    public String products(Model model) {
+    public String jenkinsBuildJobs(Model model) {
         List<BuildBox> builds = new ArrayList<>();
         List<JenkinsJob> jenkinsJobs = dataProvider.getJenkinsJobs();
         for (JenkinsJob job : jenkinsJobs) {
