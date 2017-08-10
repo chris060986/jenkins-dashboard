@@ -1,5 +1,6 @@
 package com.chbi.ui;
 
+import com.chbi.json.entities.JenkinsBuild;
 import com.chbi.json.entities.JenkinsJob;
 import com.chbi.rest.DataProvider;
 import com.chbi.ui.entities.BuildBox;
@@ -14,34 +15,34 @@ import java.util.List;
 @Controller
 public class BuildJobController {
 
-  private DataProvider dataProvider;
+    private DataProvider dataProvider;
 
-  @Autowired
-  BuildJobController(DataProvider productService) {
-    this.dataProvider = productService;
-  }
-
-  @RequestMapping("/jenkinsJobs")
-  public String products(Model model) {
-      List<BuildBox> builds = new ArrayList<>();
-    List<JenkinsJob> jenkinsJobs = dataProvider.getJenkinsJobs();
-    for(JenkinsJob job : jenkinsJobs){
-      builds.add(createBuildBox(job));
+    @Autowired
+    BuildJobController(DataProvider productService) {
+        this.dataProvider = productService;
     }
 
-    model.addAttribute("jenkinsJobs", builds);
+    @RequestMapping("/jenkinsJobs")
+    public String products(Model model) {
+        List<BuildBox> builds = new ArrayList<>();
+        List<JenkinsJob> jenkinsJobs = dataProvider.getJenkinsJobs();
+        for (JenkinsJob job : jenkinsJobs) {
+            builds.add(createBuildBox(job));
+        }
 
-    return "jenkinsJobs";
-  }
+        model.addAttribute("jenkinsJobs", builds);
 
-  private BuildBox createBuildBox(JenkinsJob job) {
-    int lastBuildNumber = dataProvider.getLastBuildNumber(job);
-    String changingUsers = dataProvider.getChangingUserFor(job);
+        return "jenkinsJobs";
+    }
 
-    return new BuildBox().withBranchname(job.getName())
-            .withBuildNumber(lastBuildNumber).withBuildUrl(job.getUrl())
-            .withCommiter(changingUsers).withColor(job.getColor());
-  }
+    private BuildBox createBuildBox(JenkinsJob job) {
+        JenkinsBuild lastBuild = dataProvider.getLastBuild(job);
+        String changingUsers = dataProvider.getChangingUserFor(lastBuild.getUrl());
+
+        return new BuildBox().withBranchname(job.getName())
+                .withBuildNumber(lastBuild.getNumber()).withBuildUrl(job.getUrl())
+                .withCommiter(changingUsers).withColor(job.getColor());
+    }
 
 
 }
