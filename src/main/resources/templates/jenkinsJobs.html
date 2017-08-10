@@ -14,32 +14,15 @@
         <div class="row">
             <div class="col-xs-6 col-md-3 buildbox" th:each="job : ${jenkinsJobs}">
                 <div class="panel" th:classappend="${job.getColor()}">
-                    <a th:href="${job.getUrl()}">
-                        <h3 th:text="${job.getName()}">feature/xyz</h3>
-                        <h3><small>#866</small></h3>
+                    <a th:href="${job.getBuildUrl()}">
+                        <h3 th:text="${job.getBranchName()}">feature/xyz</h3>
+                        <h3><small th:text="${job.getBuildNumber()}">#866</small></h3>
                         <h3><small th:text="${job.getColor()}">bich152</small></h3>
                     </a>
 
                 </div>
             </div>
         </div>
-
-
-        <!--<table class="table table-stripped" th:if="${not jenkinsJobs.isEmpty()}">
-            <thead>
-            <tr>
-                <th>Status</th>
-                <th>Name</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="job : ${jenkinsJobs}">
-                <td th:text="${job.getColor()}"></td>
-                <td th:text="${job.getName()}"></td>
-            </tr>
-            </tbody>
-        </table>-->
-
     </div>
 </div>
 

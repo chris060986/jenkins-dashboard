@@ -23,4 +23,12 @@ public class DataProvider {
         return Lists.newArrayList();
     }
 
+    public int getLastBuildNumber(JenkinsJob jenkinsJob){
+        return 808;
+    }
+
+    public String getChangingUserFor(JenkinsJob job) {
+        return "bich152";
+    }
+
 }
