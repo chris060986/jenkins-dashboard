@@ -46,7 +46,7 @@ public class DataProvider {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
 
-        if (StringUtils.isEmpty(configuration.getCredits())) {
+        if (!StringUtils.isEmpty(configuration.getCredits())) {
             String base64Creds = "Basic " + configuration.getCredits();
             headers.add("Authorization", base64Creds);
         }
