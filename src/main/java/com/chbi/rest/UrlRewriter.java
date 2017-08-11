@@ -11,7 +11,9 @@ import org.springframework.util.StringUtils;
 @Service
 public class UrlRewriter {
 
-    public static final String API_JSON_URL_ENDING = "api/json";
+    private static final String API_JSON_URL_ENDING = "api/json";
+    private static final String HTML_WHITESPACE = "%20";
+    private static final String WHITESPACE = " ";
 
     @Autowired
     private ApplicationConfiguration configuration;
@@ -20,6 +22,7 @@ public class UrlRewriter {
 
         String preparedUrl = StringUtils.replace(baseUrl, configuration.getUrlSearchPattern(),
                 configuration.getUrlReplacement());
+        preparedUrl = StringUtils.replace(preparedUrl, HTML_WHITESPACE, WHITESPACE);
         preparedUrl += API_JSON_URL_ENDING;
 
         return preparedUrl;
