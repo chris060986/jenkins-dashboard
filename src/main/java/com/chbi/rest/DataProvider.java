@@ -27,7 +27,7 @@ public class DataProvider {
     public List<JenkinsJob> getJenkinsJobs() {
         RestTemplate restTemplate = new RestTemplate();
 
-        HttpEntity<String> request = requestManager.getStringHttpEntity();
+        HttpEntity<String> request = requestManager.getJsonHttpEntity();
 
         String url = urlRewriter.getPreparedBaseUrl();
 
@@ -44,7 +44,7 @@ public class DataProvider {
     public JenkinsBuild getLastBuild(JenkinsJob jenkinsJob) {
         RestTemplate restTemplate = new RestTemplate();
 
-        HttpEntity<String> request = requestManager.getStringHttpEntity();
+        HttpEntity<String> request = requestManager.getJsonHttpEntity();
 
         String url = urlRewriter.prepareUrl(jenkinsJob.getUrl());
 
@@ -69,7 +69,7 @@ public class DataProvider {
     public String getChangingUserFor(String lastBuildUrl) {
         RestTemplate restTemplate = new RestTemplate();
 
-        HttpEntity<String> request = requestManager.getStringHttpEntity();
+        HttpEntity<String> request = requestManager.getJsonHttpEntity();
 
         String url = urlRewriter.prepareUrl(lastBuildUrl);
 

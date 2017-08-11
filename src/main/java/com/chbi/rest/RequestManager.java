@@ -17,7 +17,7 @@ public class RequestManager {
     private ApplicationConfiguration configuration;
 
 
-    public HttpEntity<String> getStringHttpEntity() {
+    public HttpEntity<String> getJsonHttpEntity() {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
 
