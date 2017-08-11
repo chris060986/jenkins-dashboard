@@ -1,9 +1,7 @@
 package com.chbi.rest;
 
-import com.chbi.json.entities.JenkinsBuild;
-import com.chbi.json.entities.JenkinsBuildPipeline;
-import com.chbi.json.entities.JenkinsJob;
-import com.chbi.json.entities.JenkinsView;
+import com.chbi.json.entities.*;
+import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -17,7 +15,7 @@ import java.util.List;
 @Service
 public class DataProvider {
 
-
+    private static final String UNKNOWN_USER = "unknown";
     @Autowired
     private RequestManager requestManager;
     @Autowired
@@ -73,10 +71,15 @@ public class DataProvider {
 
         String url = urlRewriter.prepareUrl(lastBuildUrl);
 
-//        ResponseEntity<JenkinsBuildPipeline> response = restTemplate.exchange(url, HttpMethod.GET, request, JenkinsBuildPipeline.class);
-//        JenkinsBuildPipeline jenkinsBuildPipeline = response.getBody();
+        ResponseEntity<JenkinsBuildInstance> response = restTemplate.exchange(url, HttpMethod.GET, request, JenkinsBuildInstance.class);
+        JenkinsBuildInstance buildInstance = response.getBody();
 
-        return "bich152";
+        String users = UNKNOWN_USER;
+        if (buildInstance.getCulprits() != null && buildInstance.getCulprits().size() > 0) {
+            users = Joiner.on(", ").join(buildInstance.getCulprits());
+        }
+
+        return users;
     }
 
 }

@@ -9,7 +9,7 @@ public class BuildBox {
     private int buildNumber;
     private String buildUrl;
     private String color;
-    private String committer;
+    private String culprits;
 
     public BuildBox withBranchname(String branchName) {
         this.branchName = branchName;
@@ -31,8 +31,8 @@ public class BuildBox {
         return this;
     }
 
-    public BuildBox withCommiter(String committer) {
-        this.committer = committer;
+    public BuildBox withCulprits(String culprits) {
+        this.culprits = culprits;
         return this;
     }
 
@@ -52,7 +52,7 @@ public class BuildBox {
         return color;
     }
 
-    public String getCommitter() {
-        return committer;
+    public String getCulprits() {
+        return culprits;
     }
 }

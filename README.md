@@ -16,6 +16,9 @@ TODO
 ### Configuration
 TODO
 
+## Restrictions
+App is maybe slow if much builds have to be load. Their is no caching or anything else at the moment.
+
 ## Features - not implemented yet
 
 - Fixing layout
@@ -23,5 +26,6 @@ TODO
 - Configure which projects to see
 - Making multiproject layout
 - using SSL
+- caching or no reloading for not changed builds
 - use environmentvariables to make containerization possible
 

@@ -41,7 +41,7 @@ public class BuildJobController {
 
         return new BuildBox().withBranchname(job.getName())
                 .withBuildNumber(lastBuild.getNumber()).withBuildUrl(job.getUrl())
-                .withCommiter(changingUsers).withColor(job.getColor());
+                .withCulprits(changingUsers).withColor(job.getColor());
     }
 
 
