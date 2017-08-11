@@ -2,3 +2,4 @@ baseUrl: "https://jenkins.mono-project.com/view/All/"
 url:
   searchPattern: ""
   replacement: ""
+credits:

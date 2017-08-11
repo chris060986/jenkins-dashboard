@@ -26,7 +26,7 @@ public class DataProvider {
     private ApplicationConfiguration configuration;
 
 
-    public List<JenkinsJob> getJenkinsJobs(){
+    public List<JenkinsJob> getJenkinsJobs() {
         RestTemplate restTemplate = new RestTemplate();
 
         HttpEntity<String> request = getStringHttpEntity();
@@ -43,25 +43,28 @@ public class DataProvider {
 
     //TODO: refactore to http request builder class
     private HttpEntity<String> getStringHttpEntity() {
-
-
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Type", "application/json"  );
+        headers.add("Content-Type", "application/json");
+
+        if (StringUtils.isEmpty(configuration.getCredits())) {
+            String base64Creds = "Basic " + configuration.getCredits();
+            headers.add("Authorization", base64Creds);
+        }
 
         return new HttpEntity<>(headers);
     }
 
-    public List<JenkinsBuildPipeline> getBuildsFor(JenkinsJob jenkinsJob){
+    public List<JenkinsBuildPipeline> getBuildsFor(JenkinsJob jenkinsJob) {
         return Lists.newArrayList();
     }
 
-    public JenkinsBuild getLastBuild(JenkinsJob jenkinsJob){
+    public JenkinsBuild getLastBuild(JenkinsJob jenkinsJob) {
         RestTemplate restTemplate = new RestTemplate();
 
         HttpEntity<String> request = getStringHttpEntity();
 
         String url = prepareUrl(jenkinsJob.getUrl());
-        System.out.println(url);
+
         ResponseEntity<JenkinsBuildPipeline> response = restTemplate.exchange(url, HttpMethod.GET, request, JenkinsBuildPipeline.class);
         JenkinsBuildPipeline pipeline = response.getBody();
 
@@ -86,8 +89,6 @@ public class DataProvider {
         HttpEntity<String> request = getStringHttpEntity();
 
         String url = prepareUrl(lastBuildUrl);
-
-        System.out.println(url);
 
 //        ResponseEntity<JenkinsBuildPipeline> response = restTemplate.exchange(url, HttpMethod.GET, request, JenkinsBuildPipeline.class);
 //        JenkinsBuildPipeline jenkinsBuildPipeline = response.getBody();

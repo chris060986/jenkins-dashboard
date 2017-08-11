@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 public class ApplicationConfiguration {
 
     String baseUrl;
+    String credits;
 
     @Value("${url.searchPattern}")
     String urlSearchPattern;
@@ -19,25 +20,33 @@ public class ApplicationConfiguration {
 
     public String getBaseUrl() {
         return baseUrl;
-  }
+    }
 
     public void setBaseUrl(String baseUrl) {
         this.baseUrl = baseUrl;
-  }
+    }
 
-  public String getUrlSearchPattern() {
-    return urlSearchPattern;
-  }
+    public String getCredits() {
+        return credits;
+    }
 
-  public void setUrlSearchPattern(String urlSearchPattern) {
-    this.urlSearchPattern = urlSearchPattern;
-  }
+    public void setCredits(String credits) {
+        this.credits = credits;
+    }
 
-  public String getUrlReplacement() {
-    return urlReplacement;
-  }
+    public String getUrlSearchPattern() {
+        return urlSearchPattern;
+    }
 
-  public void setUrlReplacement(String urlReplacement) {
-    this.urlReplacement = urlReplacement;
-  }
+    public void setUrlSearchPattern(String urlSearchPattern) {
+        this.urlSearchPattern = urlSearchPattern;
+    }
+
+    public String getUrlReplacement() {
+        return urlReplacement;
+    }
+
+    public void setUrlReplacement(String urlReplacement) {
+        this.urlReplacement = urlReplacement;
+    }
 }
