@@ -18,7 +18,6 @@ import java.util.List;
 public class DataProvider {
 
 
-
     @Autowired
     private RequestManager requestManager;
     @Autowired

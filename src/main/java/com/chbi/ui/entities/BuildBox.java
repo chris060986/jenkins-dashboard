@@ -14,27 +14,27 @@ public class BuildBox {
     private String color;
     private String committer;
 
-    public BuildBox withBranchname(String branchName){
+    public BuildBox withBranchname(String branchName) {
         this.branchName = branchName;
         return this;
     }
 
-    public BuildBox withBuildNumber(int buildNumber){
+    public BuildBox withBuildNumber(int buildNumber) {
         this.buildNumber = buildNumber;
         return this;
     }
 
-    public BuildBox withBuildUrl(String lastBuildUrl){
+    public BuildBox withBuildUrl(String lastBuildUrl) {
         this.buildUrl = lastBuildUrl;
         return this;
     }
 
-    public BuildBox withColor(String color){
+    public BuildBox withColor(String color) {
         this.color = color;
         return this;
     }
 
-    public BuildBox withCommiter(String committer){
+    public BuildBox withCommiter(String committer) {
         this.committer = committer;
         return this;
     }

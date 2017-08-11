@@ -25,7 +25,7 @@ public class UrlRewriter {
         return preparedUrl;
     }
 
-    String getPreparedBaseUrl(){
+    String getPreparedBaseUrl() {
         return prepareUrl(configuration.getBaseUrl());
     }
 }

@@ -1,82 +1,98 @@
 {
   "_class": "hudson.model.AllView",
   "description": null,
-  "jobs": [{
-    "_class": "hudson.matrix.MatrixProject",
-    "name": "build-package-dpkg-llvm",
-    "url": "https://jenkins.mono-project.com/job/build-package-dpkg-llvm/",
-    "color": "blue"
-  }, {
-    "_class": "hudson.matrix.MatrixProject",
-    "name": "build-package-dpkg-mono",
-    "url": "https://jenkins.mono-project.com/job/build-package-dpkg-mono/",
-    "color": "blue"
-  }, {
-    "_class": "hudson.matrix.MatrixProject",
-    "name": "build-package-dpkg-mono-4.4",
-    "url": "https://jenkins.mono-project.com/job/build-package-dpkg-mono-4.4/",
-    "color": "blue"
-  }, {
-    "_class": "hudson.matrix.MatrixProject",
-    "name": "build-package-dpkg-mono-4.6",
-    "url": "https://jenkins.mono-project.com/job/build-package-dpkg-mono-4.6/",
-    "color": "blue"
-  }, {
-    "_class": "hudson.matrix.MatrixProject",
-    "name": "build-package-dpkg-mono-4.8",
-    "url": "https://jenkins.mono-project.com/job/build-package-dpkg-mono-4.8/",
-    "color": "blue"
-  }, {
-    "_class": "hudson.matrix.MatrixProject",
-    "name": "build-package-dpkg-mono-pullrequest",
-    "url": "https://jenkins.mono-project.com/job/build-package-dpkg-mono-pullrequest/",
-    "color": "blue"
-  }, {
-    "_class": "hudson.matrix.MatrixProject",
-    "name": "build-package-rpm-mono",
-    "url": "https://jenkins.mono-project.com/job/build-package-rpm-mono/",
-    "color": "blue"
-  }, {
-    "_class": "hudson.model.FreeStyleProject",
-    "name": "build-source-dpkg-mono",
-    "url": "https://jenkins.mono-project.com/job/build-source-dpkg-mono/",
-    "color": "blue"
-  }, {
-    "_class": "hudson.model.FreeStyleProject",
-    "name": "build-source-dpkg-mono-4.4",
-    "url": "https://jenkins.mono-project.com/job/build-source-dpkg-mono-4.4/",
-    "color": "blue"
-  }, {
-    "_class": "hudson.model.FreeStyleProject",
-    "name": "build-source-dpkg-mono-4.6",
-    "url": "https://jenkins.mono-project.com/job/build-source-dpkg-mono-4.6/",
-    "color": "blue"
-  }, {
-    "_class": "hudson.model.FreeStyleProject",
-    "name": "build-source-dpkg-mono-4.8",
-    "url": "https://jenkins.mono-project.com/job/build-source-dpkg-mono-4.8/",
-    "color": "blue"
-  }, {
-    "_class": "hudson.model.FreeStyleProject",
-    "name": "build-source-dpkg-mono-pullrequest",
-    "url": "https://jenkins.mono-project.com/job/build-source-dpkg-mono-pullrequest/",
-    "color": "blue"
-  }, {
-    "_class": "hudson.model.FreeStyleProject",
-    "name": "build-source-rpm-mono",
-    "url": "https://jenkins.mono-project.com/job/build-source-rpm-mono/",
-    "color": "blue"
-  }, {
-    "_class": "hudson.model.FreeStyleProject",
-    "name": "build-source-tarball-mono",
-    "url": "https://jenkins.mono-project.com/job/build-source-tarball-mono/",
-    "color": "red"
-  }, {
-    "_class": "hudson.matrix.MatrixProject",
-    "name": "zy",
-    "url": "https://jenkins.mono-project.com/job/zy/",
-    "color": "red"
-  }],
+  "jobs": [
+    {
+      "_class": "hudson.matrix.MatrixProject",
+      "name": "build-package-dpkg-llvm",
+      "url": "https://jenkins.mono-project.com/job/build-package-dpkg-llvm/",
+      "color": "blue"
+    },
+    {
+      "_class": "hudson.matrix.MatrixProject",
+      "name": "build-package-dpkg-mono",
+      "url": "https://jenkins.mono-project.com/job/build-package-dpkg-mono/",
+      "color": "blue"
+    },
+    {
+      "_class": "hudson.matrix.MatrixProject",
+      "name": "build-package-dpkg-mono-4.4",
+      "url": "https://jenkins.mono-project.com/job/build-package-dpkg-mono-4.4/",
+      "color": "blue"
+    },
+    {
+      "_class": "hudson.matrix.MatrixProject",
+      "name": "build-package-dpkg-mono-4.6",
+      "url": "https://jenkins.mono-project.com/job/build-package-dpkg-mono-4.6/",
+      "color": "blue"
+    },
+    {
+      "_class": "hudson.matrix.MatrixProject",
+      "name": "build-package-dpkg-mono-4.8",
+      "url": "https://jenkins.mono-project.com/job/build-package-dpkg-mono-4.8/",
+      "color": "blue"
+    },
+    {
+      "_class": "hudson.matrix.MatrixProject",
+      "name": "build-package-dpkg-mono-pullrequest",
+      "url": "https://jenkins.mono-project.com/job/build-package-dpkg-mono-pullrequest/",
+      "color": "blue"
+    },
+    {
+      "_class": "hudson.matrix.MatrixProject",
+      "name": "build-package-rpm-mono",
+      "url": "https://jenkins.mono-project.com/job/build-package-rpm-mono/",
+      "color": "blue"
+    },
+    {
+      "_class": "hudson.model.FreeStyleProject",
+      "name": "build-source-dpkg-mono",
+      "url": "https://jenkins.mono-project.com/job/build-source-dpkg-mono/",
+      "color": "blue"
+    },
+    {
+      "_class": "hudson.model.FreeStyleProject",
+      "name": "build-source-dpkg-mono-4.4",
+      "url": "https://jenkins.mono-project.com/job/build-source-dpkg-mono-4.4/",
+      "color": "blue"
+    },
+    {
+      "_class": "hudson.model.FreeStyleProject",
+      "name": "build-source-dpkg-mono-4.6",
+      "url": "https://jenkins.mono-project.com/job/build-source-dpkg-mono-4.6/",
+      "color": "blue"
+    },
+    {
+      "_class": "hudson.model.FreeStyleProject",
+      "name": "build-source-dpkg-mono-4.8",
+      "url": "https://jenkins.mono-project.com/job/build-source-dpkg-mono-4.8/",
+      "color": "blue"
+    },
+    {
+      "_class": "hudson.model.FreeStyleProject",
+      "name": "build-source-dpkg-mono-pullrequest",
+      "url": "https://jenkins.mono-project.com/job/build-source-dpkg-mono-pullrequest/",
+      "color": "blue"
+    },
+    {
+      "_class": "hudson.model.FreeStyleProject",
+      "name": "build-source-rpm-mono",
+      "url": "https://jenkins.mono-project.com/job/build-source-rpm-mono/",
+      "color": "blue"
+    },
+    {
+      "_class": "hudson.model.FreeStyleProject",
+      "name": "build-source-tarball-mono",
+      "url": "https://jenkins.mono-project.com/job/build-source-tarball-mono/",
+      "color": "red"
+    },
+    {
+      "_class": "hudson.matrix.MatrixProject",
+      "name": "zy",
+      "url": "https://jenkins.mono-project.com/job/zy/",
+      "color": "red"
+    }
+  ],
   "name": "All",
   "property": [],
   "url": "https://jenkins.mono-project.com/view/All/"
