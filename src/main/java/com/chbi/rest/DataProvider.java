@@ -33,8 +33,6 @@ public class DataProvider {
 
         String url = prepareUrl(configuration.getBaseUrl());
 
-        System.out.println(url);
-
         ResponseEntity<JenkinsView> response = restTemplate.exchange(url, HttpMethod.GET, request, JenkinsView.class);
         JenkinsView jenkinsView = response.getBody();
 
