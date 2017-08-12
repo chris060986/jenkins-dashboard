@@ -55,4 +55,9 @@ public class BuildBox {
     public String getCulprits() {
         return culprits;
     }
+
+    public String getJiraTicket() {
+        //TODO: Ticketnumber, configurable
+        return "TBBT-0815";
+    }
 }

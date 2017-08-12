@@ -1,18 +1,53 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 <head>
-    <script type="text/javascript" src="jquery-1.6.4.min.js"></script>
-
-    <script>
-      function getTasks() {
-        $.get("https://localhost:8080/api/jobs",
-          function(data){
-            alert("Data Loaded: " + data);
-          });
-    }
-    </script>
+    <meta charset="utf-8" />
+    <title>Builds</title>
+    <link rel="stylesheet prefetch" href="css/prefetch.css" />
+    <link rel="stylesheet" href="css/stylesheet.css" />
 </head>
 <body>
-<button onclick="javascript:getTasks();">Show Match</button>
+    <div class="swimlane">
+        <font class="headline">Mainline</font>
+        <div class="container">
+            <div class="box">
+                <div class="build">
+                    1234
+                </div>
+                <div class="info failed">
+                    <div class="heading">
+                        TBBT-73
+                    </div>
+                    <div class="subheading">
+                        <img src="img/group.png" height="20px" />
+                        feature/TBBT-73--bazinga
+                    </div>
+                    <div class="committers">
+                        <img src="img/group.png" height="20px" />
+                        Sheldon Cooper
+                    </div>
+                </div>
+                <div class="details">
+                    <div class="history">
+                        <div class="health unstable">
+                            1234
+                        </div>
+                        <div class="health failed">
+                            2345
+                        </div>
+                        <div class="health stable">
+                            3456
+                        </div>
+                        <div class="health stable">
+                            4567
+                        </div>
+                        <div class="health aborted">
+                            5678
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

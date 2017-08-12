@@ -5,23 +5,72 @@
 </head>
 <body>
 
-<div class="container">
+<!--<div class="container">-->
 
-    <div id="result">
-        <p th:if="${jenkinsJobs.isEmpty()}">
-            No result found.
-        </p>
-        <div class="row">
-            <div class="col-xs-6 col-md-3 buildbox" th:each="job : ${jenkinsJobs}">
-                <div class="panel" th:classappend="${job.getColor()}">
-                    <a th:href="${job.getBuildUrl()}">
-                        <h3 th:text="${job.getBranchName()}">feature/xyz</h3>
-                        <h3><small th:text="${job.getBuildNumber()}">#866</small></h3>
-                        <h3>
-                            <small th:text="${job.getCulprits()}">bich152</small>
-                        </h3>
-                    </a>
+<!--<div id="result">-->
+<!--<p th:if="${jenkinsJobs.isEmpty()}">-->
+<!--No result found.-->
+<!--</p>-->
+<!--<div class="row">-->
+<!--<div class="col-xs-6 col-md-3 buildbox" th:each="job : ${jenkinsJobs}">-->
+<!--<div class="panel" th:classappend="${job.getColor()}">-->
+<!--<a th:href="${job.getBuildUrl()}">-->
+<!--<h3 th:text="${job.getBranchName()}">feature/xyz</h3>-->
+<!--<h3><small th:text="${job.getBuildNumber()}">#866</small></h3>-->
+<!--<h3>-->
+<!--<small th:text="${job.getCulprits()}">bich152</small>-->
+<!--</h3>-->
+<!--</a>-->
 
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+
+
+<div class="swimlane">
+    <font class="headline">Mainline</font>
+    <p th:if="${jenkinsJobs.isEmpty()}">
+        No result found.
+    </p>
+    <div class="container" th:if="${not jenkinsJobs.isEmpty()}">
+        <div class="box" th:each="job : ${jenkinsJobs}">
+            <div class="build" th:text="${job.getBuildNumber()}">
+                1234
+            </div>
+            <div class="info failed">
+                <a th:href="${job.getBuildUrl()}">
+                    <div class="heading" th:text="${job.getJiraTicket()}">
+                        TBBT-73
+                    </div>
+                    <div class="subheading" th:text="${job.getBranchName()}">
+                        <img src="img/group.png" height="20px"/>
+                        feature/TBBT-73--bazinga
+                    </div>
+                    <div class="committers" th:text="${job.getCulprits()}">
+                        <img src="img/group.png" height="20px"/>
+                        Sheldon Cooper
+                    </div>
+                </a>
+            </div>
+            <div class="details">
+                <div class="history">
+                    <div class="health unstable" th:text="${job.getBuildNumber()-1}">
+                        1234
+                    </div>
+                    <div class="health failed" th:text="${job.getBuildNumber()-2}">
+                        2345
+                    </div>
+                    <div class="health stable" th:text="${job.getBuildNumber()-3}">
+                        3456
+                    </div>
+                    <div class="health stable" th:text="${job.getBuildNumber()-4}">
+                        4567
+                    </div>
+                    <div class="health aborted" th:text="${job.getBuildNumber()-5}">
+                        5678
+                    </div>
                 </div>
             </div>
         </div>
