@@ -3,3 +3,4 @@ url:
   searchPattern: ""
   replacement: ""
 credits:
+jiraTaskRegEx: "TBBT-\\d{1,4}"

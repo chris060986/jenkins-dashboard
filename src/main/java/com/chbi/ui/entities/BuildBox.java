@@ -10,6 +10,7 @@ public class BuildBox {
     private String buildUrl;
     private String color;
     private String culprits;
+    private String jiraTicket;
 
     public BuildBox withBranchname(String branchName) {
         this.branchName = branchName;
@@ -36,6 +37,11 @@ public class BuildBox {
         return this;
     }
 
+    public BuildBox withJiraTicket(String jiraTicket){
+        this.jiraTicket = jiraTicket;
+        return this;
+    }
+
     public String getBranchName() {
         return branchName;
     }
@@ -57,7 +63,6 @@ public class BuildBox {
     }
 
     public String getJiraTicket() {
-        //TODO: Ticketnumber, configurable
-        return "TBBT-0815";
+        return jiraTicket;
     }
 }

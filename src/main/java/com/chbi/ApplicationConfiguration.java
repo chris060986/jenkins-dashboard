@@ -18,6 +18,8 @@ public class ApplicationConfiguration {
     @Value("${url.replacement}")
     String urlReplacement;
 
+    String jiraTaskRegEx;
+
     public String getBaseUrl() {
         return baseUrl;
     }
@@ -48,5 +50,13 @@ public class ApplicationConfiguration {
 
     public void setUrlReplacement(String urlReplacement) {
         this.urlReplacement = urlReplacement;
+    }
+
+    public String getJiraTaskRegEx() {
+        return jiraTaskRegEx;
+    }
+
+    public void setJiraTaskRegEx(String jiraTaskRegEx) {
+        this.jiraTaskRegEx = jiraTaskRegEx;
     }
 }
