@@ -5,30 +5,6 @@
 </head>
 <body>
 
-<!--<div class="container">-->
-
-<!--<div id="result">-->
-<!--<p th:if="${jenkinsJobs.isEmpty()}">-->
-<!--No result found.-->
-<!--</p>-->
-<!--<div class="row">-->
-<!--<div class="col-xs-6 col-md-3 buildbox" th:each="job : ${jenkinsJobs}">-->
-<!--<div class="panel" th:classappend="${job.getColor()}">-->
-<!--<a th:href="${job.getBuildUrl()}">-->
-<!--<h3 th:text="${job.getBranchName()}">feature/xyz</h3>-->
-<!--<h3><small th:text="${job.getBuildNumber()}">#866</small></h3>-->
-<!--<h3>-->
-<!--<small th:text="${job.getCulprits()}">bich152</small>-->
-<!--</h3>-->
-<!--</a>-->
-
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-
-
 <div class="swimlane">
     <font class="headline">Mainline</font>
     <p th:if="${jenkinsJobs.isEmpty()}">
@@ -39,7 +15,7 @@
             <div class="build" th:text="${job.getBuildNumber()}">
                 1234
             </div>
-            <div class="info failed">
+            <div class="info " th:classappend="${job.getColor()}">
                 <a th:href="${job.getBuildUrl()}">
                     <div class="heading" th:text="${job.getJiraTicket()}">
                         TBBT-73

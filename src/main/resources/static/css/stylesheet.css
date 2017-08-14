@@ -101,3 +101,46 @@ div {
 .aborted {
   background: #666666;
 }
+
+.green{
+    background: #009900;
+}
+.blue{
+    background: #009900;
+}
+.green_anime{
+    background: #009900;
+}
+.blue_anime{
+    background: #009900;
+}
+.yellow{
+    background: #D77C00;
+}
+.yellow_anime{
+    background: #D77C00;
+}
+.red{
+    background: #990000;
+}
+.red_anime{
+    background: #990000;
+}
+.disabled {
+    background: #666666;
+}
+.aborted {
+    background: #666666;
+}
+.notbuilt{
+    background: #666666;
+}
+.disabled_anime {
+    background: #666666;
+}
+.aborted_anime {
+    background: #666666;
+}
+.notbuilt_anime{
+    background: #666666;
+}
