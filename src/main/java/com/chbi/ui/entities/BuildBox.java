@@ -1,5 +1,7 @@
 package com.chbi.ui.entities;
 
+import com.google.common.base.Strings;
+
 /**
  * Class is representing a buildbox on the view.
  */
@@ -12,6 +14,8 @@ public class BuildBox {
     private String culprits;
     private String jiraTicket;
     private String jiraUrl;
+    //TODO: could be enum?!
+    private String branchType;
 
     public BuildBox withBranchname(String branchName) {
         this.branchName = branchName;
@@ -48,6 +52,11 @@ public class BuildBox {
         return this;
     }
 
+    public BuildBox withBranchType(String branchType){
+        this.branchType = branchType;
+        return this;
+    }
+
     public String getBranchName() {
         return branchName;
     }
@@ -74,5 +83,17 @@ public class BuildBox {
 
     public String getJiraUrl() {
         return jiraUrl;
+    }
+
+    public String getBranchType() {
+        return branchType;
+    }
+
+    public boolean hasJiraTicket(){
+        return !Strings.isNullOrEmpty(jiraTicket);
+    }
+
+    public boolean hasBranchType(){
+        return !Strings.isNullOrEmpty(branchType);
     }
 }

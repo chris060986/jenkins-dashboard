@@ -55,10 +55,13 @@ public class BuildJobController {
         String changingUsers = dataProvider.getChangingUserFor(lastBuild.getUrl());
 
 
-        BuildBox buildBox = new BuildBox().withBranchname(urlRewriter.decodeStringInUtf8(job.getName()))
-                .withBuildNumber(lastBuild.getNumber()).withBuildUrl(job.getUrl())
+        BuildBox buildBox = new BuildBox()
+                .withBranchname(urlRewriter.decodeStringInUtf8(job.getName()))
+                .withBranchType(getBranchType(job))
+                .withBuildNumber(lastBuild.getNumber())
+                .withBuildUrl(job.getUrl())
                 .withCulprits(changingUsers).withColor(job.getColor())
-                .withJiraTicket(calculateHeadline(job));
+                .withJiraTicket(parseJiraTicket(job));
         if(!Strings.isNullOrEmpty(buildBox.getJiraTicket())){
             buildBox = buildBox.withJiraUrl(urlRewriter.prepareJiraUrl(buildBox.getJiraTicket()));
         }
@@ -66,23 +69,21 @@ public class BuildJobController {
         return buildBox;
     }
 
-    private String calculateHeadline(JenkinsJob job){
-        //TODO: change to get jira ticket
-        String headLine = "";
+    private String parseJiraTicket(JenkinsJob job){
+        return getMatchingPart(configuration.getJiraTaskRegEx(), job.getUrl());
+    }
+
+    private String getBranchType(JenkinsJob job){
+        String branchType = "";
         String url = job.getUrl();
         if(url.contains(SLASH + MASTER + SLASH)){
-            headLine = MASTER;
+            branchType = MASTER;
         }else if((url.contains(SLASH + SNAPSHOT + SLASH))){
-            headLine = SNAPSHOT;
+            branchType = SNAPSHOT;
         } else if((url.contains("--" + SCHEDULE))){
-            headLine = getMatchingPart(SCHEDULE_REGEX, url);
-        } else {
-            headLine = getMatchingPart(configuration.getJiraTaskRegEx(), url);
+            branchType = getMatchingPart(SCHEDULE_REGEX, url);
         }
-        if(Strings.isNullOrEmpty(headLine)){
-            return job.getName();
-        }
-        return headLine;
+        return branchType;
     }
 
     private String getMatchingPart(String regex, String url) {
