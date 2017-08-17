@@ -53,8 +53,13 @@ div {
 }
 
 .heading {
-  font-size: 30px;
+  font-size: 24px;
   padding-top: 20px;
+}
+.image {
+  height: 20px;
+  padding-right: 5px;
+  float: left;
 }
 
 .subheading {

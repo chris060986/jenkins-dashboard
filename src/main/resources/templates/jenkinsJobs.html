@@ -17,16 +17,16 @@
             </div>
             <div class="info " th:classappend="${job.getColor()}">
                 <a th:href="${job.getBuildUrl()}">
-                    <div class="heading" th:text="${job.getJiraTicket()}">
+                    <div class="heading" th:text="${job.getBranchName()}">
                         TBBT-73
                     </div>
-                    <div class="subheading" th:text="${job.getBranchName()}">
-                        <img src="img/group.png" height="20px"/>
-                        feature/TBBT-73--bazinga
+                    <div class="subheading">
+                        <img class="image" th:src="@{/img/group.png}" />
+                        <p class="subheading" th:text="${job.getJiraTicket()}">feature/TBBT-73--bazinga</p>
                     </div>
-                    <div class="committers" th:text="${job.getCulprits()}">
-                        <img src="img/group.png" height="20px"/>
-                        Sheldon Cooper
+                    <div class="committers">
+                        <img class="image" th:src="@{/img/group.png}"/>
+                        <p class="committers" th:text="${job.getCulprits()}">Sheldon Cooper</p>
                     </div>
                 </a>
             </div>
