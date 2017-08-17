@@ -13,7 +13,7 @@
     <div class="container" th:if="${not jenkinsJobs.isEmpty()}">
         <div class="box" th:each="job : ${jenkinsJobs}">
             <a th:href="${job.getJiraUrl()}">
-                <div class="build">
+                <div class="build" th:text="${job.getJiraTicket()}">
                     TBBT-73
                 </div>
             </a>
