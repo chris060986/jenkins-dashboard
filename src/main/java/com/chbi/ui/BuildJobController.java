@@ -55,7 +55,7 @@ public class BuildJobController {
         String changingUsers = dataProvider.getChangingUserFor(lastBuild.getUrl());
 
 
-        BuildBox buildBox = new BuildBox().withBranchname(job.getName())
+        BuildBox buildBox = new BuildBox().withBranchname(urlRewriter.decodeStringInUtf8(job.getName()))
                 .withBuildNumber(lastBuild.getNumber()).withBuildUrl(job.getUrl())
                 .withCulprits(changingUsers).withColor(job.getColor())
                 .withJiraTicket(calculateHeadline(job));

@@ -23,13 +23,11 @@ public class UrlRewriter {
     String prepareUrl(String baseUrl) {
         String preparedUrl = StringUtils.replace(baseUrl, configuration.getUrlSearchPattern(),
                 configuration.getUrlReplacement());
-        try {
-            preparedUrl = URLDecoder.decode(preparedUrl, "UTF-8");
 
-            preparedUrl += API_JSON_URL_ENDING;
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        preparedUrl = decodeStringInUtf8(preparedUrl);
+
+        preparedUrl += API_JSON_URL_ENDING;
+
         return preparedUrl;
     }
 
@@ -42,5 +40,15 @@ public class UrlRewriter {
             return "";
         }
         return configuration.getJiraBaseUrl() + "browse/" + ticketNumber;
+    }
+
+    public String decodeStringInUtf8(String toDecode){
+        String decodedUrl = toDecode;
+        try {
+            decodedUrl = URLDecoder.decode(toDecode, "UTF-8");
+        } catch (UnsupportedEncodingException e1) {
+            e1.printStackTrace();
+        }
+        return decodedUrl;
     }
 }
