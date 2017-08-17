@@ -4,6 +4,7 @@ import com.chbi.ApplicationConfiguration;
 import com.chbi.json.entities.JenkinsBuild;
 import com.chbi.json.entities.JenkinsJob;
 import com.chbi.rest.DataProvider;
+import com.chbi.rest.UrlRewriter;
 import com.chbi.ui.entities.BuildBox;
 import com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +28,13 @@ public class BuildJobController {
 
     private DataProvider dataProvider;
     private ApplicationConfiguration configuration;
+    private UrlRewriter urlRewriter;
 
     @Autowired
-    BuildJobController(DataProvider productService, ApplicationConfiguration config) {
+    BuildJobController(DataProvider productService, ApplicationConfiguration config, UrlRewriter urlRewriter) {
         this.dataProvider = productService;
         this.configuration = config;
+        this.urlRewriter = urlRewriter;
     }
 
     @RequestMapping("/jenkinsJobs")
@@ -51,12 +54,20 @@ public class BuildJobController {
         JenkinsBuild lastBuild = dataProvider.getLastBuild(job);
         String changingUsers = dataProvider.getChangingUserFor(lastBuild.getUrl());
 
-        return new BuildBox().withBranchname(job.getName())
+
+        BuildBox buildBox = new BuildBox().withBranchname(job.getName())
                 .withBuildNumber(lastBuild.getNumber()).withBuildUrl(job.getUrl())
-                .withCulprits(changingUsers).withColor(job.getColor()).withJiraTicket(calculateHeadline(job));
+                .withCulprits(changingUsers).withColor(job.getColor())
+                .withJiraTicket(calculateHeadline(job));
+        if(!Strings.isNullOrEmpty(buildBox.getJiraTicket())){
+            buildBox = buildBox.withJiraUrl(urlRewriter.prepareJiraUrl(buildBox.getJiraTicket()));
+        }
+
+        return buildBox;
     }
 
     private String calculateHeadline(JenkinsJob job){
+        //TODO: change to get jira ticket
         String headLine = "";
         String url = job.getUrl();
         if(url.contains(SLASH + MASTER + SLASH)){

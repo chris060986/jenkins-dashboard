@@ -12,9 +12,11 @@
     </p>
     <div class="container" th:if="${not jenkinsJobs.isEmpty()}">
         <div class="box" th:each="job : ${jenkinsJobs}">
-            <div class="build" th:text="${job.getJiraTicket()}">
-                TBBT-73
-            </div>
+            <a th:href="${job.getJiraUrl()}">
+                <div class="build">
+                    TBBT-73
+                </div>
+            </a>
             <div class="info " th:classappend="${job.getColor()}">
                 <a th:href="${job.getBuildUrl()}">
                     <div class="heading" th:text="${job.getBranchName()}">

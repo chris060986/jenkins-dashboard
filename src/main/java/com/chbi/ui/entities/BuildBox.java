@@ -11,6 +11,7 @@ public class BuildBox {
     private String color;
     private String culprits;
     private String jiraTicket;
+    private String jiraUrl;
 
     public BuildBox withBranchname(String branchName) {
         this.branchName = branchName;
@@ -42,6 +43,11 @@ public class BuildBox {
         return this;
     }
 
+    public BuildBox withJiraUrl(String url){
+        this.jiraUrl = url;
+        return this;
+    }
+
     public String getBranchName() {
         return branchName;
     }
@@ -64,5 +70,9 @@ public class BuildBox {
 
     public String getJiraTicket() {
         return jiraTicket;
+    }
+
+    public String getJiraUrl() {
+        return jiraUrl;
     }
 }

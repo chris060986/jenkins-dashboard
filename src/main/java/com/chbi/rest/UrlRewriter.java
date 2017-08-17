@@ -1,6 +1,7 @@
 package com.chbi.rest;
 
 import com.chbi.ApplicationConfiguration;
+import com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -34,5 +35,12 @@ public class UrlRewriter {
 
     String getPreparedBaseUrl() {
         return prepareUrl(configuration.getBaseUrl());
+    }
+
+    public String prepareJiraUrl(String ticketNumber){
+        if(Strings.isNullOrEmpty(configuration.getBaseUrl())){
+            return "";
+        }
+        return configuration.getJiraBaseUrl() + "browse/" + ticketNumber;
     }
 }
