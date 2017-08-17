@@ -12,17 +12,17 @@
     </p>
     <div class="container" th:if="${not jenkinsJobs.isEmpty()}">
         <div class="box" th:each="job : ${jenkinsJobs}">
-            <div class="build" th:text="${job.getBuildNumber()}">
-                1234
+            <div class="build" th:text="${job.getJiraTicket()}">
+                TBBT-73
             </div>
             <div class="info " th:classappend="${job.getColor()}">
                 <a th:href="${job.getBuildUrl()}">
                     <div class="heading" th:text="${job.getBranchName()}">
-                        TBBT-73
+                        feature/TBBT-73-fix-me
                     </div>
                     <div class="subheading">
                         <img class="image" th:src="@{/img/group.png}" />
-                        <p class="subheading" th:text="${job.getJiraTicket()}">feature/TBBT-73--bazinga</p>
+                        <p class="subheading" th:text="${job.getBuildNumber()}">866</p>
                     </div>
                     <div class="committers">
                         <img class="image" th:src="@{/img/group.png}"/>
