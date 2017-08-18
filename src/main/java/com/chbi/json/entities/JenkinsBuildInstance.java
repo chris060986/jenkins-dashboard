@@ -9,6 +9,7 @@ public class JenkinsBuildInstance {
 
     private String _class;
     private List<JenkinsAuthor> culprits;
+    private List<JenkinsChangeSets> changeSets;
 
     public JenkinsBuildInstance() {
     }
@@ -27,5 +28,13 @@ public class JenkinsBuildInstance {
 
     public void setCulprits(List<JenkinsAuthor> culprits) {
         this.culprits = culprits;
+    }
+
+    public List<JenkinsChangeSets> getChangeSets() {
+        return changeSets;
+    }
+
+    public void setChangeSets(List<JenkinsChangeSets> changeSets) {
+        this.changeSets = changeSets;
     }
 }

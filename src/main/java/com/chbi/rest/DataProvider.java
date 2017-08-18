@@ -2,7 +2,9 @@ package com.chbi.rest;
 
 import com.chbi.json.entities.*;
 import com.google.common.base.Joiner;
+import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -11,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Service
 public class DataProvider {
@@ -74,12 +78,28 @@ public class DataProvider {
         ResponseEntity<JenkinsBuildInstance> response = restTemplate.exchange(url, HttpMethod.GET, request, JenkinsBuildInstance.class);
         JenkinsBuildInstance buildInstance = response.getBody();
 
-        String users = UNKNOWN_USER;
+        String users;
         if (buildInstance.getCulprits() != null && buildInstance.getCulprits().size() > 0) {
             users = Joiner.on(", ").join(buildInstance.getCulprits());
+        } else {
+            users = Joiner.on(", ").join(getAuthorsFromChangeSet(buildInstance.getChangeSets()));
+        }
+
+        if (Strings.isNullOrEmpty(users)) {
+            users = UNKNOWN_USER;
         }
 
         return users;
+    }
+
+    private List<JenkinsAuthor> getAuthorsFromChangeSet(List<JenkinsChangeSets> changeSets) {
+        Set<JenkinsAuthor> authors = Sets.newHashSet();
+
+        changeSets.forEach(jenkinsChangeSets -> jenkinsChangeSets.getItems()
+                .stream().filter(stringObjectMap -> stringObjectMap.containsKey("author"))
+                .forEach(filteredObject -> authors.add(new JenkinsAuthor((Map) filteredObject.get("author")))));
+
+        return Lists.newArrayList(authors.iterator());
     }
 
 }
