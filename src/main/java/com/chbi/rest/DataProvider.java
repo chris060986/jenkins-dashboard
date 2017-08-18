@@ -16,6 +16,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/*
+ * TODO: if there is an error like 404 because jenkins is unavailable,
+ * exceptions should be catched...
+ */
 @Service
 public class DataProvider {
 
