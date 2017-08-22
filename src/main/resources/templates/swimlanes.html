@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/head"></div>
+</head>
+<body>
+
+<div class="swimlane" th:each="swimlane : ${swimlanes}">
+    <font class="headline" th:text="${swimlane.getHeadline()}">Swimlane</font>
+    <p th:if="${not swimlane.hasBuildBoxes()}">
+        No jobs found.
+    </p>
+    <div class="container" th:if="${swimlane.hasBuildBoxes()}">
+        <div class="box" th:each="buildBox : ${swimlane.getBuildBoxes()}">
+            <div class="grid">
+                <div class="build feature" th:if="${buildBox.hasJiraTicket()}">
+                    <span th:text="${buildBox.getJiraTicket()}">ASKD-1234</span>
+                </div>
+                <div class="info " th:classappend="${buildBox.getColor()}">
+                    <a th:href="${buildBox.getBuildUrl()}">
+                        <div class="heading" th:text="${buildBox.getBranchNameShort()}">
+                            BRANCH NAME
+                        </div>
+                        <div class="subheading">
+                            <img class="image" th:src="@{/img/branch.png}" />
+                            <p class="subheading" th:text="${buildBox.getBranchName()}">SUBHEADING</p>
+                        </div>
+                        <div class="committers">
+                            <img class="image" th:src="@{/img/group.png}"/>
+                            <p class="committers" th:text="${buildBox.getCulprit()}">COMMITTERS</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments/scripts"></div>
+</body>
+</html>

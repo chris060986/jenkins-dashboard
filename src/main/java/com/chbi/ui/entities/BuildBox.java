@@ -1,6 +1,11 @@
 package com.chbi.ui.entities;
 
+import com.chbi.ui.Dictionary;
 import com.google.common.base.Strings;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Class is representing a buildbox on the view.
@@ -10,8 +15,8 @@ public class BuildBox {
     private String branchName;
     private int buildNumber;
     private String buildUrl;
-    private String color;
-    private String culprits;
+    private JobColor color;
+    private HashSet<String> culprits = new HashSet<>();
     private String jiraTicket;
     private String jiraUrl;
     //TODO: could be enum?!
@@ -32,13 +37,15 @@ public class BuildBox {
         return this;
     }
 
-    public BuildBox withColor(String color) {
+    public BuildBox withColor(JobColor color) {
         this.color = color;
         return this;
     }
 
-    public BuildBox withCulprits(String culprits) {
-        this.culprits = culprits;
+    public BuildBox withCulprits(String... culprits) {
+        for (String culprit : culprits) {
+            this.culprits.addAll(Arrays.asList(culprit.split(", ")));
+        }
         return this;
     }
 
@@ -61,6 +68,10 @@ public class BuildBox {
         return branchName;
     }
 
+    public String getBranchNameShort() {
+        return branchName.replaceFirst("^[a-z]+\\/[A-Z]+-[0-9]+[-]+", "");
+    }
+
     public int getBuildNumber() {
         return buildNumber;
     }
@@ -69,12 +80,26 @@ public class BuildBox {
         return buildUrl;
     }
 
-    public String getColor() {
+    public JobColor getColor() {
         return color;
     }
 
-    public String getCulprits() {
+    public Set<String> getCulprits() {
         return culprits;
+    }
+
+    public String getCulprit() {
+        if (this.culprits.isEmpty()) {
+            return "unknown";
+        } else {
+            String culprits = Dictionary.lookupCulprit(this.culprits.iterator().next());
+
+            if (this.culprits.size() > 1) {
+                culprits = culprits.concat(" +" + (this.culprits.size() - 1));
+            }
+
+            return culprits;
+        }
     }
 
     public String getJiraTicket() {

@@ -27,25 +27,37 @@ div {
   margin: 10px;
   box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
   background-color: #FFFFFF;
-  width: 300px;
+  width: 400px;
   display: inline-block;
 }
 
+.grid {
+  display: flex;
+}
+
 .build {
-  margin: 5px;
-  position: absolute;
-  padding: 10px;
+  margin-right: -2px;
   background: #1B213D;
-  font-size: 12px;
-  vertical-align: middle;
-  text-align: center;
+  font-size: 16px;
   color: #FFFFFF;
+  display: flex;
+  width: 50px;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.build span {
+  transform: rotate(270deg);
 }
 
 .info {
-  margin: 10px;
-  margin-bottom: 5px;
+  margin: 3px;
   padding: 20px;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .info * {
@@ -54,210 +66,116 @@ div {
 
 .heading {
   font-size: 24px;
-  padding-top: 20px;
+  height: 26px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
+
+.subheading {
+  font-size: 12px;
+  padding: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.committers {
+  font-size: 12px;
+  padding: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .image {
   height: 20px;
   padding-right: 5px;
   float: left;
 }
 
-.subheading {
-  font-size: 12px;
-  padding: 5px;
-}
-
-.committers {
-  font-size: 12px;
-  padding: 5px;
-}
-
-.details {
-  padding: 10px;
-  padding-top: 0px;
-}
-
-.history {
-  width: 100%;
-  display: table;
-  table-layout: fixed;
-}
-
-.health {
-  height: 100%;
-	font-size: 10px;
-	text-align: center;
-	padding: 10px;
-	display: table-cell;
-}
-
-.stable {
-  background: #009900
-}
-
-.unstable {
-  background: #D77C00
-}
-
-.failed {
-  background: #990000;
-}
-
-.aborted {
-  background: #666666;
-}
-
-.green{
-    background: #009900;
-}
 .blue{
-    background: #009900;
-}
-.green_anime{
-    background: #009900;
-    -webkit-animation: background-green 2s cubic-bezier(1,0,0,1) infinite;
-    animation: background-green 2s cubic-bezier(1,0,0,1) infinite;
-}
-.blue_anime{
-    background: #009900;
-    -webkit-animation: background-green 2s cubic-bezier(1,0,0,1) infinite;
-    animation: background-green 2s cubic-bezier(1,0,0,1) infinite;
+    background-color: #009900;
 }
 .yellow{
-    background: #D77C00;
+    background-color: #D77C00;
+}
+.red{
+    background-color: #990000;
+}
+.disabled {
+    background-color: #666666;
+}
+.aborted {
+    background-color: #666666;
+}
+.notbuilt{
+    background-color: #666666;
+}
+
+.feature{
+    background-color: #0077AA;
+}
+
+.bugfix{
+    background-color: #aa0077;
+}
+
+.blue_anime{
+    background-color: #009900;
+    animation-name: background-blue;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
 }
 .yellow_anime{
     background: #D77C00;
-    webkit-animation: background-yellow 2s cubic-bezier(1,0,0,1) infinite;
-    animation: background-yellow 2s cubic-bezier(1,0,0,1) infinite;
-}
-.red{
-    background: #990000;
+    animation: background-yellow;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
 }
 .red_anime{
     background: #990000;
-    webkit-animation: background-red 2s cubic-bezier(1,0,0,1) infinite;
-    animation: background-red 2s cubic-bezier(1,0,0,1) infinite;
-}
-.disabled {
-    background: #666666;
-}
-.aborted {
-    background: #666666;
-}
-.notbuilt{
-    background: #666666;
+    animation: background-red;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
 }
 .disabled_anime {
     background: #666666;
-    webkit-animation: background-aborted 2s cubic-bezier(1,0,0,1) infinite;
-    animation: background-aborted 2s cubic-bezier(1,0,0,1) infinite;
+    animation: background-aborted;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
 }
 .aborted_anime {
     background: #666666;
-    webkit-animation: background-aborted 2s cubic-bezier(1,0,0,1) infinite;
-    animation: background-aborted 2s cubic-bezier(1,0,0,1) infinite;
+    animation: background-aborted;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
 }
 .notbuilt_anime{
     background: #666666;
-    webkit-animation: background-aborted 2s cubic-bezier(1,0,0,1) infinite;
-    animation: background-aborted 2s cubic-bezier(1,0,0,1) infinite;
+    animation: background-aborted;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
 }
 
-@-webkit-keyframes background-green {
-  0%   { background-color: #009900; }
-  10%  { background-color: #009900; }
-  20%  { background-color: #009900; }
-  50%  { background-color: #00b300; }
-  80%  { background-color: #00cc00; }
-  100% { background-color: #00e600; }
-}
-@keyframes background-green {
+@keyframes background-blue {
   0%   { background-color: #00e600; }
-  20%  { background-color: #00cc00; }
-  50%  { background-color: #00b300; }
-  80%  { background-color: #009900; }
-  90%  { background-color: #009900; }
   100% { background-color: #009900; }
 }
 
-@-webkit-keyframes background-yellow {
-  0%   { background-color: #D77C00; }
-  10%  { background-color: #D77C00; }
-  20%  { background-color: #D77C00; }
-  30%  { background-color: #e68600; }
-  40%  { background-color: #ff9500; }
-  50%  { background-color: #ff9f1a; }
-  60%  { background-color: #ffaa33; }
-  70%  { background-color: #ffb54d; }
-  80%  { background-color: #ffbf66; }
-  90%  { background-color: #ffca80; }
-  100% { background-color: #ffd599; }
-}
 @keyframes background-yellow {
   0%   { background-color: #ffd599; }
-  10%  { background-color: #ffca80; }
-  20%  { background-color: #ffbf66; }
-  30%  { background-color: #ffb54d; }
-  40%  { background-color: #ffaa33; }
-  50%  { background-color: #ff9f1a; }
-  60%  { background-color: #ff9500; }
-  70%  { background-color: #e68600; }
-  80%  { background-color: #D77C00; }
-  90%  { background-color: #D77C00; }
   100% { background-color: #D77C00; }
 }
 
-@-webkit-keyframes background-red {
-  0%   { background-color: #990000; }
-  10%  { background-color: #990000; }
-  20%  { background-color: #990000; }
-  30%  { background-color: #b30000; }
-  40%  { background-color: #cc0000; }
-  50%  { background-color: #e60000; }
-  60%  { background-color: #ff0000; }
-  70%  { background-color: #ff1a1a; }
-  80%  { background-color: #ff3333; }
-  90%  { background-color: #ff4d4d; }
-  100% { background-color: #ff6666; }
-}
+
 @keyframes background-red {
   0%   { background-color: #ff6666; }
-  10%  { background-color: #ff4d4d; }
-  20%  { background-color: #ff3333; }
-  30%  { background-color: #ff1a1a; }
-  40%  { background-color: #ff0000; }
-  50%  { background-color: #e60000; }
-  70%  { background-color: #cc0000; }
-  60%  { background-color: #b30000; }
-  80%  { background-color: #990000; }
-  90%  { background-color: #990000; }
   100% { background-color: #990000; }
 }
 
-@-webkit-keyframes background-aborted {
-  0%   { background-color: #666666; }
-  20%  { background-color: #666666; }
-  10%  { background-color: #666666; }
-  30%  { background-color: #737373; }
-  40%  { background-color: #808080; }
-  50%  { background-color: #8c8c8c; }
-  60%  { background-color: #999999; }
-  70%  { background-color: #a6a6a6; }
-  80%  { background-color: #b3b3b3; }
-  90%  { background-color: #bfbfbf; }
-  100% { background-color: #cccccc; }
-}
+
 @keyframes background-aborted {
   0%   { background-color: #cccccc; }
-  10%  { background-color: #bfbfbf; }
-  20%  { background-color: #b3b3b3; }
-  30%  { background-color: #a6a6a6; }
-  40%  { background-color: #999999; }
-  50%  { background-color: #8c8c8c; }
-  60%  { background-color: #808080; }
-  70%  { background-color: #737373; }
-  80%  { background-color: #666666; }
-  90%  { background-color: #666666; }
   100% { background-color: #666666; }
 }

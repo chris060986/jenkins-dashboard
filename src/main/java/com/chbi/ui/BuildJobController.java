@@ -6,6 +6,8 @@ import com.chbi.json.entities.JenkinsJob;
 import com.chbi.rest.DataProvider;
 import com.chbi.rest.UrlRewriter;
 import com.chbi.ui.entities.BuildBox;
+import com.chbi.ui.entities.JobColor;
+import com.chbi.ui.entities.Swimlane;
 import com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -50,6 +52,33 @@ public class BuildJobController {
         return "jenkinsJobs";
     }
 
+    @RequestMapping("/swimlanes")
+    public String displaySwimlanes(Model model) {
+        List<Swimlane> swimlanes = new ArrayList<>();
+        List<JenkinsJob> jenkinsJobs = dataProvider.getJenkinsJobs();
+
+        Swimlane mainline = new Swimlane().withHeadline("Mainline");
+        Swimlane misc = new Swimlane().withHeadline("Miscellaneous");
+
+        for (JenkinsJob job : jenkinsJobs) {
+            BuildBox box = createBuildBox(job);
+            String branchName = box.getBranchName();
+
+            if (branchName.contains("master") || branchName.contains("snapshot")) {
+                mainline.withBuildBoxes(box);
+            } else {
+                misc.withBuildBoxes(box);
+            }
+        }
+
+        swimlanes.add(mainline);
+        swimlanes.add(misc);
+
+        model.addAttribute("swimlanes", swimlanes);
+
+        return "swimlanes";
+    }
+
     private BuildBox createBuildBox(JenkinsJob job) {
         JenkinsBuild lastBuild = dataProvider.getLastBuild(job);
         String changingUsers = dataProvider.getChangingUserFor(lastBuild.getUrl());
@@ -60,7 +89,8 @@ public class BuildJobController {
                 .withBranchType(getBranchType(job))
                 .withBuildNumber(lastBuild.getNumber())
                 .withBuildUrl(job.getUrl())
-                .withCulprits(changingUsers).withColor(job.getColor())
+                .withCulprits(changingUsers)
+                .withColor(JobColor.valueOf(job.getColor()))
                 .withJiraTicket(parseJiraTicket(job));
         if(!Strings.isNullOrEmpty(buildBox.getJiraTicket())){
             buildBox = buildBox.withJiraUrl(urlRewriter.prepareJiraUrl(buildBox.getJiraTicket()));
