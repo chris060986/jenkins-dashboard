@@ -27,7 +27,7 @@ div {
   margin: 10px;
   box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
   background-color: #FFFFFF;
-  width: 400px;
+  width: 450px;
   display: inline-block;
 }
 
@@ -118,7 +118,7 @@ div {
 }
 
 .bugfix{
-    background-color: #aa0077;
+    background-color: #AA0077;
 }
 
 .blue_anime{

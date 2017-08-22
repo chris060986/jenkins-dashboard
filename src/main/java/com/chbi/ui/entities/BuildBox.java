@@ -12,6 +12,7 @@ import java.util.Set;
  */
 public class BuildBox {
 
+    private String displayName;
     private String branchName;
     private int buildNumber;
     private String buildUrl;
@@ -22,7 +23,12 @@ public class BuildBox {
     //TODO: could be enum?!
     private String branchType;
 
-    public BuildBox withBranchname(String branchName) {
+    public BuildBox withDisplayName(String displayName) {
+        this.displayName = displayName;
+        return this;
+    }
+
+    public BuildBox withBranchName(String branchName) {
         this.branchName = branchName;
         return this;
     }
@@ -62,6 +68,14 @@ public class BuildBox {
     public BuildBox withBranchType(String branchType){
         this.branchType = branchType;
         return this;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public String getDisplayNameShort() {
+        return displayName.replaceFirst("[a-z]+\\/[A-Z]+-[0-9]+[-]+", "");
     }
 
     public String getBranchName() {
@@ -120,5 +134,9 @@ public class BuildBox {
 
     public boolean hasBranchType(){
         return !Strings.isNullOrEmpty(branchType);
+    }
+
+    public boolean hasDisplayName() {
+        return (displayName != null? !displayName.equals(branchName): false);
     }
 }

@@ -47,7 +47,7 @@ public class DataProvider {
         return Lists.newArrayList();
     }
 
-    public JenkinsBuild getLastBuild(JenkinsJob jenkinsJob) {
+    public JenkinsBuildPipeline getJenkinsBuildPipeline(JenkinsJob jenkinsJob) {
         RestTemplate restTemplate = new RestTemplate();
 
         HttpEntity<String> request = requestManager.getJsonHttpEntity();
@@ -57,22 +57,16 @@ public class DataProvider {
         ResponseEntity<JenkinsBuildPipeline> response = restTemplate.exchange(url, HttpMethod.GET, request, JenkinsBuildPipeline.class);
         JenkinsBuildPipeline pipeline = response.getBody();
 
-        JenkinsBuild jenkinsBuild = new JenkinsBuild();
-
         //lastbuild is null, if buildPipeline was never executed
-        if (pipeline.getLastBuild() != null) {
-            jenkinsBuild.setNumber(pipeline.getLastBuild().getNumber());
-            jenkinsBuild.setUrl(pipeline.getLastBuild().getUrl());
-            jenkinsBuild.set_class(pipeline.getLastBuild().get_class());
-        } else {
-            jenkinsBuild.setNumber(-1);
-            jenkinsBuild.setUrl(jenkinsJob.getUrl());
-            jenkinsBuild.set_class("never build");
+        if (pipeline.getLastBuild() == null) {
+            pipeline.getLastBuild().setNumber(-1);
+            pipeline.getLastBuild().setUrl(jenkinsJob.getUrl());
+            pipeline.getLastBuild().set_class("never built");
         }
-        return jenkinsBuild;
+        return pipeline;
     }
 
-    public String getChangingUserFor(String lastBuildUrl) {
+    public JenkinsBuildInstance getBuildInstance(String lastBuildUrl) {
         RestTemplate restTemplate = new RestTemplate();
 
         HttpEntity<String> request = requestManager.getJsonHttpEntity();
@@ -80,8 +74,10 @@ public class DataProvider {
         String url = urlRewriter.prepareUrl(lastBuildUrl);
 
         ResponseEntity<JenkinsBuildInstance> response = restTemplate.exchange(url, HttpMethod.GET, request, JenkinsBuildInstance.class);
-        JenkinsBuildInstance buildInstance = response.getBody();
+        return response.getBody();
+    }
 
+    public String getChangingUserFor(JenkinsBuildInstance buildInstance) {
         String users;
         if (buildInstance.getCulprits() != null && buildInstance.getCulprits().size() > 0) {
             users = Joiner.on(", ").join(buildInstance.getCulprits());

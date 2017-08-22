@@ -1,7 +1,8 @@
 package com.chbi.ui;
 
 import com.chbi.ApplicationConfiguration;
-import com.chbi.json.entities.JenkinsBuild;
+import com.chbi.json.entities.JenkinsBuildInstance;
+import com.chbi.json.entities.JenkinsBuildPipeline;
 import com.chbi.json.entities.JenkinsJob;
 import com.chbi.rest.DataProvider;
 import com.chbi.rest.UrlRewriter;
@@ -27,6 +28,10 @@ public class BuildJobController {
     private static final String SCHEDULE = "schedule";
     private static final String SCHEDULE_REGEX = SCHEDULE + "-\\d{1,3}";
     private static final String SLASH = "/";
+    private static final String FEATURE_REGEX = "^feature\\/.*";
+    private static final String BUGFIX_REGEX = "^bugfix\\/.*";
+    private static final String FEATURE = "feature";
+    private static final String BUGFIX = "bugfix";
 
     private DataProvider dataProvider;
     private ApplicationConfiguration configuration;
@@ -58,6 +63,7 @@ public class BuildJobController {
         List<JenkinsJob> jenkinsJobs = dataProvider.getJenkinsJobs();
 
         Swimlane mainline = new Swimlane().withHeadline("Mainline");
+        Swimlane integration = new Swimlane().withHeadline("Integration");
         Swimlane misc = new Swimlane().withHeadline("Miscellaneous");
 
         for (JenkinsJob job : jenkinsJobs) {
@@ -66,12 +72,15 @@ public class BuildJobController {
 
             if (branchName.contains("master") || branchName.contains("snapshot")) {
                 mainline.withBuildBoxes(box);
+            } else if (branchName.contains("schedule")) {
+                integration.withBuildBoxes(box);
             } else {
                 misc.withBuildBoxes(box);
             }
         }
 
         swimlanes.add(mainline);
+        swimlanes.add(integration);
         swimlanes.add(misc);
 
         model.addAttribute("swimlanes", swimlanes);
@@ -80,14 +89,16 @@ public class BuildJobController {
     }
 
     private BuildBox createBuildBox(JenkinsJob job) {
-        JenkinsBuild lastBuild = dataProvider.getLastBuild(job);
-        String changingUsers = dataProvider.getChangingUserFor(lastBuild.getUrl());
+        JenkinsBuildPipeline pipeline = dataProvider.getJenkinsBuildPipeline(job);
 
+        JenkinsBuildInstance buildInstance = dataProvider.getBuildInstance(pipeline.getLastBuild().getUrl());
+        String changingUsers = dataProvider.getChangingUserFor(buildInstance);
 
         BuildBox buildBox = new BuildBox()
-                .withBranchname(urlRewriter.decodeStringInUtf8(job.getName()))
+                .withDisplayName(buildInstance.getFullDisplayName())
+                .withBranchName(urlRewriter.decodeStringInUtf8(job.getName()))
                 .withBranchType(getBranchType(job))
-                .withBuildNumber(lastBuild.getNumber())
+                .withBuildNumber(pipeline.getLastBuild().getNumber())
                 .withBuildUrl(job.getUrl())
                 .withCulprits(changingUsers)
                 .withColor(JobColor.valueOf(job.getColor()))
@@ -105,6 +116,8 @@ public class BuildJobController {
 
     private String getBranchType(JenkinsJob job){
         String branchType = "";
+
+        String name = urlRewriter.decodeStringInUtf8(job.getName());
         String url = job.getUrl();
         if(url.contains(SLASH + MASTER + SLASH)){
             branchType = MASTER;
@@ -112,6 +125,10 @@ public class BuildJobController {
             branchType = SNAPSHOT;
         } else if((url.contains("--" + SCHEDULE))){
             branchType = getMatchingPart(SCHEDULE_REGEX, url);
+        } else if(name.matches(FEATURE_REGEX)) {
+            branchType = FEATURE;
+        } else if(name.matches(BUGFIX_REGEX)) {
+            branchType = BUGFIX;
         }
         return branchType;
     }

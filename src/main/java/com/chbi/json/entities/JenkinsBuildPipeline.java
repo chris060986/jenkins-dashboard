@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class JenkinsBuildPipeline {
 
     JenkinsBuild lastBuild;
+    String displayName;
 
     public JenkinsBuildPipeline() {
     }
@@ -16,5 +17,13 @@ public class JenkinsBuildPipeline {
 
     public void setLastBuild(JenkinsBuild lastBuild) {
         this.lastBuild = lastBuild;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 }

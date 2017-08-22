@@ -10,6 +10,7 @@ public class JenkinsBuildInstance {
     private String _class;
     private List<JenkinsAuthor> culprits;
     private List<JenkinsChangeSets> changeSets;
+    private String fullDisplayName;
 
     public JenkinsBuildInstance() {
     }
@@ -36,5 +37,13 @@ public class JenkinsBuildInstance {
 
     public void setChangeSets(List<JenkinsChangeSets> changeSets) {
         this.changeSets = changeSets;
+    }
+
+    public String getFullDisplayName() {
+        return fullDisplayName;
+    }
+
+    public void setFullDisplayName(String fullDisplayName) {
+        this.fullDisplayName = fullDisplayName;
     }
 }
