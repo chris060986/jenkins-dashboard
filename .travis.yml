@@ -1,1 +1,12 @@
+sudo: required
+
 language: java
+
+services:
+  - docker
+
+after_success:
+  - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+  - docker --version  # document the version travis is using
+  - docker build -t chris060986/jenkins-dashboard:latest .
+  - docker push chris060986/jenkins-dashboard:latest
