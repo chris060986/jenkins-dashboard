@@ -8,5 +8,9 @@ public enum JobColor {
     red,
     red_anime,
     aborted,
-    aborted_anime;
+    aborted_anime,
+    notbuilt,
+    notbuilt_anime,
+    disabled,
+    disabled_anime;
 }
