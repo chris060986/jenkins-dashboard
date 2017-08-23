@@ -65,6 +65,7 @@ public class BuildJobController {
         Swimlane mainline = new Swimlane().withHeadline("Mainline");
         Swimlane integration = new Swimlane().withHeadline("Integration");
         Swimlane misc = new Swimlane().withHeadline("Miscellaneous");
+        Swimlane deployment = new Swimlane().withHeadline("Deployment");
 
         for (JenkinsJob job : jenkinsJobs) {
             BuildBox box = createBuildBox(job);
@@ -74,6 +75,8 @@ public class BuildJobController {
                 mainline.withBuildBoxes(box);
             } else if (branchName.contains("schedule")) {
                 integration.withBuildBoxes(box);
+            } else if (branchName.contains("deployment")) {
+                deployment.withBuildBoxes(box);
             } else {
                 misc.withBuildBoxes(box);
             }
@@ -82,6 +85,7 @@ public class BuildJobController {
         swimlanes.add(mainline);
         swimlanes.add(integration);
         swimlanes.add(misc);
+        swimlanes.add(deployment);
 
         model.addAttribute("swimlanes", swimlanes);
 
