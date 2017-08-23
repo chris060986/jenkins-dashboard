@@ -1,4 +1,7 @@
-# Jenkins-Dashboard
+# Jenkins-Dashboard 
+
+[![Build Status](https://travis-ci.org/chris060986/jenkins-dashboard.svg?branch=master)](https://travis-ci.org/chris060986/jenkins-dashboard)
+
 A build dashboard for jenkins for all who are no allowed to install jenkins plugins.
 
 ## Motivation
