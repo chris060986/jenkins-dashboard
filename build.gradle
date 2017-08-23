@@ -12,7 +12,7 @@ plugins {
     id 'org.springframework.boot' version '1.5.6.RELEASE'
 }
 
-group 'com.chbi'
+group 'com.bich'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
@@ -27,6 +27,8 @@ jar {
 }
 
 task buildDocker(type: Docker, dependsOn: build) {
+    project.group = 'chris060986'
+    project.version='latest'
     applicationName = jar.baseName
     dockerfile = file('Dockerfile')
     doFirst {

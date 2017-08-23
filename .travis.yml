@@ -6,10 +6,11 @@ services:
   - docker
 
 script:
-  - ./gradlew build buildDocker
+  - ./gradlew buildDocker
 
 after_success:
   - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
   - docker --version  # document the version travis is using
+  - docker tag
   - docker images --all
-  - docker push chris060986/jenkins-dashboard
+  - docker push chris060986/jenkins-dashboard:latest
