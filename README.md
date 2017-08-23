@@ -19,6 +19,14 @@ TODO
 ### Configuration
 TODO
 
+## Docker
+
+Every build is publishing a docker image on [Dockerhub](https://hub.docker.com/r/chris060986/jenkins-dashboard/).
+
+### Image usage
+
+TODO
+
 ## Restrictions
 App is maybe slow if much builds have to be load. Their is no caching or anything else at the moment.
 
