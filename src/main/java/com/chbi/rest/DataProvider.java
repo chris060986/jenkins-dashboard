@@ -2,7 +2,6 @@ package com.chbi.rest;
 
 import com.chbi.json.entities.*;
 import com.google.common.base.Joiner;
-import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,11 +80,9 @@ public class DataProvider {
         String users;
         if (buildInstance.getCulprits() != null && buildInstance.getCulprits().size() > 0) {
             users = Joiner.on(", ").join(buildInstance.getCulprits());
-        } else {
+        } else if (buildInstance.getChangeSets() != null) {
             users = Joiner.on(", ").join(getAuthorsFromChangeSet(buildInstance.getChangeSets()));
-        }
-
-        if (Strings.isNullOrEmpty(users)) {
+        } else {
             users = UNKNOWN_USER;
         }
 
