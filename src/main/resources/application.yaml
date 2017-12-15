@@ -5,3 +5,6 @@ url:
 credits:
 jiraBaseUrl:
 jiraTaskRegEx: "TBBT-\\d{1,4}"
+swimlanes:
+  Mainline: "^(master).*"
+  Features: "^(feature).*"
