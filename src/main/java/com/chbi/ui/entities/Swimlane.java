@@ -1,8 +1,8 @@
 package com.chbi.ui.entities;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Class is representing a swimlane on the view.
@@ -18,7 +18,11 @@ public class Swimlane {
     }
 
     public Swimlane withBuildBoxes(BuildBox... boxes) {
-        this.buildBoxes.addAll(Arrays.asList(boxes));
+        return this.withBuildBoxes(boxes);
+    }
+
+    public Swimlane withBuildBoxes(List<BuildBox> boxes) {
+        this.buildBoxes.addAll(boxes);
         return this;
     }
 
@@ -33,4 +37,5 @@ public class Swimlane {
     public Collection<BuildBox> getBuildBoxes() {
         return buildBoxes;
     }
+
 }

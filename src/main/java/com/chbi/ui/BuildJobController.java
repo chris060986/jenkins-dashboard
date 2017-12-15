@@ -10,6 +10,7 @@ import com.chbi.ui.entities.BuildBox;
 import com.chbi.ui.entities.JobColor;
 import com.chbi.ui.entities.Swimlane;
 import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -62,34 +63,34 @@ public class BuildJobController {
         List<Swimlane> swimlanes = new ArrayList<>();
         List<JenkinsJob> jenkinsJobs = dataProvider.getJenkinsJobs();
 
-        Swimlane mainline = new Swimlane().withHeadline("Mainline");
-        Swimlane integration = new Swimlane().withHeadline("Integration");
-        Swimlane misc = new Swimlane().withHeadline("Miscellaneous");
-        Swimlane deployment = new Swimlane().withHeadline("Deployment");
-
-        for (JenkinsJob job : jenkinsJobs) {
-            BuildBox box = createBuildBox(job);
-            String branchName = box.getBranchName();
-
-            if (branchName.contains("master") || branchName.contains("snapshot")) {
-                mainline.withBuildBoxes(box);
-            } else if (branchName.contains("schedule")) {
-                integration.withBuildBoxes(box);
-            } else if (branchName.contains("deployment")) {
-                deployment.withBuildBoxes(box);
-            } else {
-                misc.withBuildBoxes(box);
-            }
+        for (String swimlaneKey : configuration.getSwimlanes().keySet()) {
+            Swimlane lane = new Swimlane().withHeadline(swimlaneKey);
+            lane.withBuildBoxes(getBoxesFor(swimlaneKey, jenkinsJobs));
+            swimlanes.add(lane);
         }
-
-        swimlanes.add(mainline);
-        swimlanes.add(integration);
-        swimlanes.add(misc);
-        swimlanes.add(deployment);
 
         model.addAttribute("swimlanes", swimlanes);
 
         return "swimlanes";
+    }
+
+    private List<BuildBox> getBoxesFor(String swimlaneKey, List<JenkinsJob> jenkinsJobs) {
+        List<BuildBox> boxes = Lists.newArrayList();
+        if (configuration.getSwimlanes() != null) {
+            String regExp = configuration.getSwimlanes().get(swimlaneKey);
+
+            if (regExp != null) {
+                for (JenkinsJob job : jenkinsJobs) {
+                    BuildBox box = createBuildBox(job);
+                    String displayName = box.getDisplayName();
+
+                    if (displayName.matches(regExp)) {
+                        boxes.add(box);
+                    }
+                }
+            }
+        }
+        return boxes;
     }
 
     private BuildBox createBuildBox(JenkinsJob job) {

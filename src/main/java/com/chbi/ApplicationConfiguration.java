@@ -4,7 +4,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
+import java.util.Map;
+
+@Component
 @Configuration
 @EnableConfigurationProperties
 @ConfigurationProperties
@@ -21,6 +25,7 @@ public class ApplicationConfiguration {
     String jiraBaseUrl;
     String jiraTaskRegEx;
 
+    Map<String, String> swimlanes;
 
     public String getBaseUrl() {
         return baseUrl;
@@ -68,5 +73,13 @@ public class ApplicationConfiguration {
 
     public void setJiraBaseUrl(String jiraBaseUrl) {
         this.jiraBaseUrl = jiraBaseUrl;
+    }
+
+    public Map<String, String> getSwimlanes() {
+        return swimlanes;
+    }
+
+    public void setSwimlanes(Map<String, String> swimlanes) {
+        this.swimlanes = swimlanes;
     }
 }
