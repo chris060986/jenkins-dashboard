@@ -39,8 +39,8 @@
     </div>
 </div>
 
-<div class="gifbox" th:if="${failed}">
-    <img class="gifimage" th:src="@{/img/cat.gif}"/>
+<div class="gifbox" th:if="${showGif}">
+    <img class="gifimage" th:src="@{${filePath}}"/>
 </div>
 
 <div th:replace="fragments/scripts"></div>

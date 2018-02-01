@@ -73,10 +73,15 @@ public class BuildJobController {
 
 
         model.addAttribute("swimlanes", swimlanes);
-        boolean isMainlineRed = isMainlineRed(swimlanes);
-        model.addAttribute("failed", isMainlineRed);
+        boolean isMainlineRed = isMainlineRed(swimlanes) || isAllGreen();
+        model.addAttribute("showGif", isMainlineRed);
+        model.addAttribute("filePath", "img/fail/fail01.gif");
 
         return "swimlanes";
+    }
+
+    private boolean isAllGreen() {
+        return true;
     }
 
     private boolean isMainlineRed(List<Swimlane> swimlanes) {
