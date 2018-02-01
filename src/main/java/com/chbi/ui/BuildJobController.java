@@ -9,6 +9,7 @@ import com.chbi.rest.UrlRewriter;
 import com.chbi.ui.entities.BuildBox;
 import com.chbi.ui.entities.JobColor;
 import com.chbi.ui.entities.Swimlane;
+import com.google.common.base.Predicate;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -69,9 +71,25 @@ public class BuildJobController {
             swimlanes.add(lane);
         }
 
+
         model.addAttribute("swimlanes", swimlanes);
+        boolean isMainlineRed = isMainlineRed(swimlanes);
+        model.addAttribute("failed", isMainlineRed);
 
         return "swimlanes";
+    }
+
+    private boolean isMainlineRed(List<Swimlane> swimlanes) {
+        if (swimlanes != null && swimlanes.size() >= 1) {
+            Swimlane main = swimlanes.get(0);
+            return main.getBuildBoxes().stream().anyMatch(new Predicate<BuildBox>() {
+                @Override
+                public boolean apply(@Nullable BuildBox input) {
+                    return input.getColor().equals(JobColor.red);
+                }
+            });
+        }
+        return false;
     }
 
     private List<BuildBox> getBoxesFor(String swimlaneKey, List<JenkinsJob> jenkinsJobs) {

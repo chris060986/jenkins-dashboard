@@ -94,6 +94,17 @@ div {
   float: left;
 }
 
+.gifimage {
+    height: 15%;
+}
+
+.gifbox{
+    padding: 3px;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+}
+
 .blue{
     background-color: #009900;
 }
