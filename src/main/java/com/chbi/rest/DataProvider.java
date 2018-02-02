@@ -22,7 +22,7 @@ import java.util.Set;
 @Service
 public class DataProvider {
 
-    private static final String UNKNOWN_USER = "unknown";
+    private static final String UNKNOWN_USER = "Luke Buildwalker";
     @Autowired
     private RequestManager requestManager;
     @Autowired
@@ -99,4 +99,7 @@ public class DataProvider {
         return Lists.newArrayList(authors.iterator());
     }
 
+    public static String getUnknownUser() {
+        return UNKNOWN_USER;
+    }
 }

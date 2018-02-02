@@ -104,20 +104,29 @@ public class BuildJobController {
 
     private BuildBox createBuildBox(JenkinsJob job) {
         JenkinsBuildPipeline pipeline = dataProvider.getJenkinsBuildPipeline(job);
+        BuildBox buildBox = new BuildBox();
 
-        JenkinsBuildInstance buildInstance = dataProvider.getBuildInstance(pipeline.getLastBuild().getUrl());
-        String changingUsers = dataProvider.getChangingUserFor(buildInstance);
+        if (pipeline != null && pipeline.getLastBuild() != null) {
+            JenkinsBuildInstance buildInstance = dataProvider.getBuildInstance(pipeline.getLastBuild().getUrl());
+            String changingUsers = dataProvider.getChangingUserFor(buildInstance);
 
-        BuildBox buildBox = new BuildBox()
-                .withDisplayName(buildInstance.getFullDisplayName())
-                .withBranchName(urlRewriter.decodeStringInUtf8(job.getName()))
+            buildBox.withDisplayName(buildInstance.getFullDisplayName())
+                    .withCulprits(changingUsers)
+                    .withBuildNumber(pipeline.getLastBuild().getNumber());
+
+        } else {
+            String displayName = pipeline != null ? pipeline.getDisplayName() : "not even build-pipeline";
+            buildBox.withDisplayName(displayName)
+                    .withCulprits(DataProvider.getUnknownUser())
+                    .withBuildNumber(0);
+        }
+
+        buildBox.withBranchName(urlRewriter.decodeStringInUtf8(job.getName()))
                 .withBranchType(getBranchType(job))
-                .withBuildNumber(pipeline.getLastBuild().getNumber())
                 .withBuildUrl(job.getUrl())
-                .withCulprits(changingUsers)
                 .withColor(JobColor.valueOf(job.getColor()))
                 .withJiraTicket(parseJiraTicket(job));
-        if(!Strings.isNullOrEmpty(buildBox.getJiraTicket())){
+        if (!Strings.isNullOrEmpty(buildBox.getJiraTicket())) {
             buildBox = buildBox.withJiraUrl(urlRewriter.prepareJiraUrl(buildBox.getJiraTicket()));
         }
 
