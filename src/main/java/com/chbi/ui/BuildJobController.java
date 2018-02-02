@@ -9,7 +9,6 @@ import com.chbi.rest.UrlRewriter;
 import com.chbi.ui.entities.BuildBox;
 import com.chbi.ui.entities.JobColor;
 import com.chbi.ui.entities.Swimlane;
-import com.google.common.base.Predicate;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -139,18 +139,22 @@ public class BuildJobController {
         return true;
     }
 
+    private boolean isMainlineRed(List<Swimlane> swimlanes) {
+        if (swimlanes != null && swimlanes.size() >= 1) {
+            Swimlane main = swimlanes.get(0);
+            return main.getBuildBoxes().stream().anyMatch(isRed());
+        }
+        return false;
+    }
+
     /*for UT */ Predicate<BuildBox> isNotGreen() {
         return input -> JobColor.blue != input.getColor() && JobColor.blue_anime != input.getColor();
     }
 
-
-    private boolean isMainlineRed(List<Swimlane> swimlanes) {
-        if (swimlanes != null && swimlanes.size() >= 1) {
-            Swimlane main = swimlanes.get(0);
-            return main.getBuildBoxes().stream().anyMatch((Predicate<BuildBox>) input -> JobColor.red.equals(input.getColor()));
-        }
-        return false;
+    private Predicate<BuildBox> isRed() {
+        return input -> JobColor.red.equals(input.getColor()) || JobColor.red_anime.equals(input.getColor());
     }
+
 
     private String getBranchType(JenkinsJob job){
         String branchType = "";

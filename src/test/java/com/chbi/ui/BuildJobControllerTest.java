@@ -13,11 +13,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class BuildJobControllerTest {
 
-    BuildJobController jobController;
-    BuildBox box;
+    private BuildJobController jobController;
+    private BuildBox box;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         jobController = new BuildJobController(Mockito.mock(DataProvider.class), Mockito.mock(ApplicationConfiguration.class),
                 Mockito.mock(UrlRewriter.class), Mockito.mock(GifProvider.class));
 
