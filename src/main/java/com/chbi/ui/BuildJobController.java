@@ -17,7 +17,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -31,20 +30,23 @@ public class BuildJobController {
     private static final String SCHEDULE = "schedule";
     private static final String SCHEDULE_REGEX = SCHEDULE + "-\\d{1,3}";
     private static final String SLASH = "/";
-    private static final String FEATURE_REGEX = "^feature\\/.*";
-    private static final String BUGFIX_REGEX = "^bugfix\\/.*";
+    private static final String FEATURE_REGEX = "^feature/.*";
+    private static final String BUGFIX_REGEX = "^bugfix/.*";
     private static final String FEATURE = "feature";
     private static final String BUGFIX = "bugfix";
 
     private DataProvider dataProvider;
     private ApplicationConfiguration configuration;
     private UrlRewriter urlRewriter;
+    private GifProvider gifProvider;
 
     @Autowired
-    BuildJobController(DataProvider productService, ApplicationConfiguration config, UrlRewriter urlRewriter) {
+    BuildJobController(DataProvider productService, ApplicationConfiguration config, UrlRewriter urlRewriter, GifProvider gifProvider) {
+
         this.dataProvider = productService;
         this.configuration = config;
         this.urlRewriter = urlRewriter;
+        this.gifProvider = gifProvider;
     }
 
     @RequestMapping("/jenkinsJobs")
@@ -71,30 +73,14 @@ public class BuildJobController {
             swimlanes.add(lane);
         }
 
-
         model.addAttribute("swimlanes", swimlanes);
-        boolean isMainlineRed = isMainlineRed(swimlanes) || isAllGreen();
-        model.addAttribute("showGif", isMainlineRed);
-        model.addAttribute("filePath", "img/fail/fail01.gif");
+
+        boolean isFail = isMainlineRed(swimlanes);
+        boolean showGif = isFail || isAllGreen(swimlanes);
+        model.addAttribute("showGif", showGif);
+        model.addAttribute("filePath", gifProvider.getRandomGif(isFail));
 
         return "swimlanes";
-    }
-
-    private boolean isAllGreen() {
-        return true;
-    }
-
-    private boolean isMainlineRed(List<Swimlane> swimlanes) {
-        if (swimlanes != null && swimlanes.size() >= 1) {
-            Swimlane main = swimlanes.get(0);
-            return main.getBuildBoxes().stream().anyMatch(new Predicate<BuildBox>() {
-                @Override
-                public boolean apply(@Nullable BuildBox input) {
-                    return input.getColor().equals(JobColor.red);
-                }
-            });
-        }
-        return false;
     }
 
     private List<BuildBox> getBoxesFor(String swimlaneKey, List<JenkinsJob> jenkinsJobs) {
@@ -140,6 +126,30 @@ public class BuildJobController {
 
     private String parseJiraTicket(JenkinsJob job){
         return getMatchingPart(configuration.getJiraTaskRegEx(), job.getUrl());
+    }
+
+    private boolean isAllGreen(List<Swimlane> swimlanes) {
+        for (Swimlane lane : swimlanes) {
+            boolean nonGreenPresent = lane.getBuildBoxes().stream().anyMatch(isNotGreen());
+            if (nonGreenPresent) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /*for UT */ Predicate<BuildBox> isNotGreen() {
+        return input -> JobColor.blue != input.getColor() && JobColor.blue_anime != input.getColor();
+    }
+
+
+    private boolean isMainlineRed(List<Swimlane> swimlanes) {
+        if (swimlanes != null && swimlanes.size() >= 1) {
+            Swimlane main = swimlanes.get(0);
+            return main.getBuildBoxes().stream().anyMatch((Predicate<BuildBox>) input -> JobColor.red.equals(input.getColor()));
+        }
+        return false;
     }
 
     private String getBranchType(JenkinsJob job){
