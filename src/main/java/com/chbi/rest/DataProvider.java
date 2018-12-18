@@ -58,6 +58,7 @@ public class DataProvider {
 
         //lastbuild is null, if buildPipeline was never executed
         if (pipeline.getLastBuild() == null) {
+            pipeline.setLastBuild(new JenkinsBuild());
             pipeline.getLastBuild().setNumber(-1);
             pipeline.getLastBuild().setUrl(jenkinsJob.getUrl());
             pipeline.getLastBuild().set_class("never built");

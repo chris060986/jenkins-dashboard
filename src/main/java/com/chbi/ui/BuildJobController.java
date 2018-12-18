@@ -10,7 +10,6 @@ import com.chbi.ui.entities.BuildBox;
 import com.chbi.ui.entities.JobColor;
 import com.chbi.ui.entities.Swimlane;
 import com.google.common.base.Strings;
-import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +20,9 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.*;
 
 @Controller
 public class BuildJobController {
@@ -51,25 +53,24 @@ public class BuildJobController {
 
     @RequestMapping("/jenkinsJobs")
     public String jenkinsBuildJobs(Model model) {
-        List<BuildBox> builds = new ArrayList<>();
         List<JenkinsJob> jenkinsJobs = dataProvider.getJenkinsJobs();
-        for (JenkinsJob job : jenkinsJobs) {
-            builds.add(createBuildBox(job));
-        }
 
-        model.addAttribute("jenkinsJobs", builds);
+        model.addAttribute("jenkinsJobs", getBoxesFor(jenkinsJobs));
 
         return "jenkinsJobs";
     }
+
 
     @RequestMapping("/swimlanes")
     public String displaySwimlanes(Model model) {
         List<Swimlane> swimlanes = new ArrayList<>();
         List<JenkinsJob> jenkinsJobs = dataProvider.getJenkinsJobs();
+        List<BuildBox> boxes = getBoxesFor(jenkinsJobs);
 
         for (String swimlaneKey : configuration.getSwimlanes().keySet()) {
+            String regExp = configuration.getSwimlanes().get(swimlaneKey);
             Swimlane lane = new Swimlane().withHeadline(swimlaneKey);
-            lane.withBuildBoxes(getBoxesFor(swimlaneKey, jenkinsJobs));
+            lane.withBuildBoxes(getMatchingBoxes(boxes, regExp));
             swimlanes.add(lane);
         }
 
@@ -83,23 +84,15 @@ public class BuildJobController {
         return "swimlanes";
     }
 
-    private List<BuildBox> getBoxesFor(String swimlaneKey, List<JenkinsJob> jenkinsJobs) {
-        List<BuildBox> boxes = Lists.newArrayList();
-        if (configuration.getSwimlanes() != null) {
-            String regExp = configuration.getSwimlanes().get(swimlaneKey);
+    private List<BuildBox> getMatchingBoxes(List<BuildBox> boxes, String regExp) {
+        return boxes.stream().filter(buildBox -> buildBox.getDisplayName().matches(regExp)).collect(toList());
+    }
 
-            if (regExp != null) {
-                for (JenkinsJob job : jenkinsJobs) {
-                    BuildBox box = createBuildBox(job);
-                    String displayName = box.getDisplayName();
-
-                    if (displayName.matches(regExp)) {
-                        boxes.add(box);
-                    }
-                }
-            }
-        }
-        return boxes;
+    private List<BuildBox> getBoxesFor(List<JenkinsJob> jenkinsJobs) {
+        return jenkinsJobs.parallelStream()
+                .filter(BuildJobController::isNoMultiBranchProject)
+                .map(this::createBuildBox)
+                .collect(toList());
     }
 
     private BuildBox createBuildBox(JenkinsJob job) {
@@ -133,7 +126,7 @@ public class BuildJobController {
         return buildBox;
     }
 
-    private String parseJiraTicket(JenkinsJob job){
+    private String parseJiraTicket(JenkinsJob job) {
         return getMatchingPart(configuration.getJiraTaskRegEx(), job.getUrl());
     }
 
@@ -164,21 +157,24 @@ public class BuildJobController {
         return input -> JobColor.red.equals(input.getColor()) || JobColor.red_anime.equals(input.getColor());
     }
 
+    private static boolean isNoMultiBranchProject(JenkinsJob jenkinsJob) {
+        return !jenkinsJob.get_class().contains("WorkflowMultiBranchProject");
+    }
 
-    private String getBranchType(JenkinsJob job){
+    private String getBranchType(JenkinsJob job) {
         String branchType = "";
 
         String name = urlRewriter.decodeStringInUtf8(job.getName());
         String url = job.getUrl();
-        if(url.contains(SLASH + MASTER + SLASH)){
+        if (url.contains(SLASH + MASTER + SLASH)) {
             branchType = MASTER;
-        }else if((url.contains(SLASH + SNAPSHOT + SLASH))){
+        } else if ((url.contains(SLASH + SNAPSHOT + SLASH))) {
             branchType = SNAPSHOT;
-        } else if((url.contains("--" + SCHEDULE))){
+        } else if ((url.contains("--" + SCHEDULE))) {
             branchType = getMatchingPart(SCHEDULE_REGEX, url);
-        } else if(name.matches(FEATURE_REGEX)) {
+        } else if (name.matches(FEATURE_REGEX)) {
             branchType = FEATURE;
-        } else if(name.matches(BUGFIX_REGEX)) {
+        } else if (name.matches(BUGFIX_REGEX)) {
             branchType = BUGFIX;
         }
         return branchType;
@@ -186,11 +182,10 @@ public class BuildJobController {
 
     private String getMatchingPart(String regex, String url) {
         String headLine = "";
-        if(regex!=null){
+        if (regex != null) {
             Pattern pattern = Pattern.compile(regex);
             Matcher matcher = pattern.matcher(url);
-            if (matcher.find())
-            {
+            if (matcher.find()) {
                 headLine = matcher.group(0);
             }
         }
