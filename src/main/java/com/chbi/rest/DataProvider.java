@@ -51,7 +51,7 @@ public class DataProvider {
 
         HttpEntity<String> request = requestManager.getJsonHttpEntity();
 
-        String url = urlRewriter.prepareUrl(jenkinsJob.getUrl());
+        String url = urlRewriter.prepareUrl(jenkinsJob.getUrl()) + "?tree=displayName,lastBuild[number,url]";
 
         ResponseEntity<JenkinsBuildPipeline> response = restTemplate.exchange(url, HttpMethod.GET, request, JenkinsBuildPipeline.class);
         JenkinsBuildPipeline pipeline = response.getBody();
@@ -71,7 +71,7 @@ public class DataProvider {
 
         HttpEntity<String> request = requestManager.getJsonHttpEntity();
 
-        String url = urlRewriter.prepareUrl(lastBuildUrl);
+        String url = urlRewriter.prepareUrl(lastBuildUrl) + "?tree=fullDisplayName,culprits[fullName,absoluteUrl],changeSets[items[*]]";
 
         ResponseEntity<JenkinsBuildInstance> response = restTemplate.exchange(url, HttpMethod.GET, request, JenkinsBuildInstance.class);
         return response.getBody();
