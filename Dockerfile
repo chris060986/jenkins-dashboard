@@ -1,7 +1,7 @@
 FROM openjdk:8-jdk-alpine
 LABEL maintainer="christoph.birk@gmail.com" \
       application="jenkins-dashboard"
-ADD target/jenkins-dashboard-latest.jar app.jar
+ADD target/jenkins-dashboard-0.1.1.jar app.jar
 ENV JAVA_OPTS=""
 ENV SPRING_APPLICATION_JSON=\
 '{ "baseUrl": "https://jenkins.mono-project.com/view/All/", "url": {"searchPattern": "", "replacement": "" },\

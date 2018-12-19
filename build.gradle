@@ -20,9 +20,8 @@ apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'docker'
 
-jar {
-    baseName = 'jenkins-dashboard'
-    version = '0.1.0'
+bootJar {
+    version = '0.1.1'
 }
 
 task buildDocker(type: Docker, dependsOn: build) {
@@ -32,7 +31,7 @@ task buildDocker(type: Docker, dependsOn: build) {
     dockerfile = file('Dockerfile')
     doFirst {
         copy {
-            from jar
+            from bootJar
             into "${stageDir}/target"
         }
     }
