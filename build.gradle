@@ -46,13 +46,13 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter")
+    compile("org.springframework.boot:spring-boot-starter:2.1.1.RELEASE")
     compile("org.springframework.boot:spring-boot-starter-web:2.1.1.RELEASE")
     compile("org.springframework.boot:spring-boot-starter-thymeleaf:2.1.1.RELEASE")
     compile("org.springframework.boot:spring-boot-devtools:2.1.1.RELEASE")
-    compile("com.fasterxml.jackson.core:jackson-databind")
+    compile("com.fasterxml.jackson.core:jackson-databind:2.9.7")
     compile("com.google.guava:guava:27.0-jre")
     testCompile group: 'junit', name: 'junit', version: '4.12'
-    testCompile("org.springframework:spring-test")
-    testCompile("org.springframework.boot:spring-boot-starter-test")
+    testCompile("org.springframework:spring-test:2.1.1.RELEASE")
+    testCompile("org.springframework.boot:spring-boot-starter-test:2.1.1.RELEASE")
 }
