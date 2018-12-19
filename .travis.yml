@@ -11,6 +11,7 @@ script:
 after_success:
   - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
   - docker --version  # document the version travis is using
-  - docker tag
+  - docker tag chris060986/jenkins-dashboard:0.1.1 chris060986/jenkins-dashboard:latest
   - docker images --all
+  - docker push chris060986/jenkins-dashboard:0.1.1
   - docker push chris060986/jenkins-dashboard:latest
