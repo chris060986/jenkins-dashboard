@@ -13,8 +13,8 @@
     <div class="container" th:if="${swimlane.hasBuildBoxes()}">
         <div class="box" th:each="buildBox : ${swimlane.getBuildBoxes()}">
             <div class="grid">
-                <div class="build " th:classappend="${buildBox.getBranchType()}" th:if="${buildBox.hasJiraTicket()}">
-                    <span th:text="${buildBox.getJiraTicket()}">ASKD-1234</span>
+                <div class="build " th:classappend="${buildBox.hasJiraTicket()} ? ${buildBox.getBranchType()} : ${buildBox.getBranchType()}+' noticket'">
+                    <span th:text="${buildBox.hasJiraTicket()} ? ${buildBox.getJiraTicket()} : TBBT-0000" />
                 </div>
                 <div class="info " th:classappend="${buildBox.getColor()}">
                     <a th:href="${buildBox.getBuildUrl()}">

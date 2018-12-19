@@ -103,6 +103,7 @@ div {
     right: 0;
     bottom: 0;
     position: absolute;
+    z-index: -1;
 }
 
 .blue{
@@ -130,6 +131,12 @@ div {
 
 .bugfix{
     background-color: #AA0077;
+}
+
+.noticket {
+  background-color: #FFFFFF;
+  color: #FFFFFF;
+  width: 3px;
 }
 
 .blue_anime{
