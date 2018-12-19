@@ -84,7 +84,6 @@ public class BuildJobController {
         model.addAttribute("swimlanes", swimlanes);
 
         isFail = isMainlineRed(swimlanes);
-        boolean showGif = isFail || isAllGreen(swimlanes);
         model.addAttribute("showGif", true);
 
         return "swimlanes";
