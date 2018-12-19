@@ -1,13 +1,15 @@
 package com.chbi.ui;
 
+import com.chbi.ApplicationConfiguration;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 public class GifProviderTest {
 
     @Test
     public void testRandomValues() {
-        GifProvider gifProvider = new GifProvider();
+        GifProvider gifProvider = new GifProvider(Mockito.mock(ApplicationConfiguration.class));
 
         for (int i = 0; i < 1000; i++) {
             int random = gifProvider.getRandomInt(7);

@@ -12,7 +12,7 @@ plugins {
 }
 
 group 'com.bich'
-version '1.0-SNAPSHOT'
+version '0.1.2'
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
@@ -21,12 +21,12 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'docker'
 
 bootJar {
-    version = '0.1.1'
+    version = "${version}"
 }
 
 task buildDocker(type: Docker, dependsOn: build) {
     project.group = 'chris060986'
-    project.version='0.1.1'
+    project.version="${version}"
     applicationName = jar.baseName
     dockerfile = file('Dockerfile')
     doFirst {
