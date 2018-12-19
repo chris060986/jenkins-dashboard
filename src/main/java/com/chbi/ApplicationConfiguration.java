@@ -25,6 +25,8 @@ public class ApplicationConfiguration {
     String jiraBaseUrl;
     String jiraTaskRegEx;
 
+    String gifPath;
+
     Map<String, String> swimlanes;
 
     public String getBaseUrl() {
@@ -81,5 +83,13 @@ public class ApplicationConfiguration {
 
     public void setSwimlanes(Map<String, String> swimlanes) {
         this.swimlanes = swimlanes;
+    }
+
+    public String getGifPath() {
+        return gifPath;
+    }
+
+    public void setGifPath(String gifPath) {
+        this.gifPath = gifPath;
     }
 }

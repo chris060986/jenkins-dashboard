@@ -13,8 +13,13 @@ import com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -41,6 +46,8 @@ public class BuildJobController {
     private ApplicationConfiguration configuration;
     private UrlRewriter urlRewriter;
     private GifProvider gifProvider;
+    private boolean isFail;
+
 
     @Autowired
     BuildJobController(DataProvider productService, ApplicationConfiguration config, UrlRewriter urlRewriter, GifProvider gifProvider) {
@@ -76,12 +83,23 @@ public class BuildJobController {
 
         model.addAttribute("swimlanes", swimlanes);
 
-        boolean isFail = isMainlineRed(swimlanes);
+        isFail = isMainlineRed(swimlanes);
         boolean showGif = isFail || isAllGreen(swimlanes);
-        model.addAttribute("showGif", showGif);
-        model.addAttribute("filePath", gifProvider.getRandomGif(isFail));
+        model.addAttribute("showGif", true);
 
         return "swimlanes";
+    }
+
+    @RequestMapping(value = "image/gif")
+    @ResponseBody
+    public byte[] getImage()  {
+        try {
+            File imageFile = gifProvider.getRandomGifAsFile(isFail);
+            return Files.readAllBytes(imageFile.toPath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new byte[0];
     }
 
     private List<BuildBox> getMatchingBoxes(List<BuildBox> boxes, String regExp) {

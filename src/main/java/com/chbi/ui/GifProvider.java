@@ -1,9 +1,14 @@
 package com.chbi.ui;
 
+import com.chbi.ApplicationConfiguration;
+import com.google.common.collect.Lists;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.io.IOException;
+import java.util.List;
 
 @Service
 public class GifProvider {
@@ -11,32 +16,27 @@ public class GifProvider {
     private static final String STATIC_IMG_FOLDER = "static/img/";
     private static final String FAIL_STRING = "fail";
     private static final String WIN_STRING = "win";
-    private static final String HTML_PATH_PREFIX = "/img/fail/";
-    private static final String DEFAULT_FILENAME = "/fail01.gif";
+    private final ApplicationConfiguration applicationConfig;
 
-    public String getRandomGif(boolean isFail) {
-        String dirPath = STATIC_IMG_FOLDER + WIN_STRING;
+    @Autowired
+    public GifProvider(ApplicationConfiguration config) {
+        this.applicationConfig = config;
+    }
+
+    public File getRandomGifAsFile(boolean isFail) throws IOException {
+        String dirPath = applicationConfig.getGifPath()+WIN_STRING;
         if (isFail) {
             dirPath = STATIC_IMG_FOLDER + FAIL_STRING;
         }
 
-        ClassLoader classLoader = getClass().getClassLoader();
-        File dir = new File(classLoader.getResource(dirPath).getFile());
-        // Get all files in /tmp
-        File[] files = dir.listFiles(new FileFilter() {
-            @Override
-            public boolean accept(File file) {
-                return file.getName().endsWith(".gif");
+        File dir = new File(dirPath);
+        if(dir.exists() && dir.isDirectory()) {
+            List<File> files = Lists.newArrayList(dir.listFiles(file -> file.getName().endsWith(".gif")));
+            if (files.size() > 0) {
+                return files.get(getRandomInt(files.size() - 1));
             }
-        });
-
-        if (files != null && files.length > 0) {
-            int random = getRandomInt(files.length);
-            String path = HTML_PATH_PREFIX + files[random].getName();
-            return path;
         }
-
-        return HTML_PATH_PREFIX + DEFAULT_FILENAME;
+        throw new IOException("No image could be read");
     }
 
     int getRandomInt(int max) {
