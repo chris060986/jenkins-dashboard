@@ -26,7 +26,7 @@ bootJar {
 
 task buildDocker(type: Docker, dependsOn: build) {
     project.group = 'chris060986'
-    project.version='latest'
+    project.version='0.1.1'
     applicationName = jar.baseName
     dockerfile = file('Dockerfile')
     doFirst {
