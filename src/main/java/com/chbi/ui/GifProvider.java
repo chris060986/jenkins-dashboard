@@ -26,7 +26,7 @@ public class GifProvider {
     public File getRandomGifAsFile(boolean isFail) throws IOException {
         String dirPath = applicationConfig.getGifPath()+WIN_STRING;
         if (isFail) {
-            dirPath = STATIC_IMG_FOLDER + FAIL_STRING;
+            dirPath = applicationConfig.getGifPath() + FAIL_STRING;
         }
 
         File dir = new File(dirPath);
